@@ -1,0 +1,739 @@
+#+TITLE: Programmer:@@latex:\\@@ @@html:<br>@@ composer des idées simples @@latex:\\@@ @@html:<br>@@pour des pensées complexes
+#+AUTHOR:
+#+EMAIL: teaching@bernard-hugueney.org
+
+#+LANGUAGE: fr
+#+OPTIONS: toc:1
+
+#+REVEAL_SLIDE_NUMBER: t
+#+REVEAL_MARGIN: 0.1
+
+#+BEGIN_SRC elisp :exports none
+(require 'ox-reveal)
+#+END_SRC
+
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/2.5.0/
+
+
+#+BEGIN_SRC java :tangle LearningGraphics.java :exports none
+  import javafx.application.Application;
+  import javafx.scene.Group;
+  import javafx.scene.Scene;
+  import javafx.scene.canvas.Canvas;
+  import javafx.scene.canvas.GraphicsContext;
+  import javafx.scene.image.PixelWriter;
+  import javafx.scene.paint.Color;
+  import javafx.scene.shape.ArcType;
+  import javafx.stage.Stage;
+  import javafx.stage.StageStyle;
+
+  import java.awt.*;
+  import java.util.*;
+
+  public class LearningGraphics extends Application {
+      protected int nbPixelsWidth;
+      protected int nbPixelsHeight ;
+      protected  Canvas canvas;
+      protected  GraphicsContext gc;
+      protected PixelWriter pw;
+      private  int nbEltsWidth;
+      private  int nbEltsHeight;
+      private int eltSize;
+      private static final HashMap<String, javafx.scene.paint.Color> colorNames;
+      private static String[][] data;
+      static {
+          colorNames= new HashMap<String, Color>();
+            colorNames.put("black", javafx.scene.paint.Color.BLACK);
+            colorNames.put("blue", javafx.scene.paint.Color.BLUE);
+            colorNames.put("gray", javafx.scene.paint.Color.GRAY);
+            colorNames.put("green", javafx.scene.paint.Color.GREEN);
+            colorNames.put("orange", javafx.scene.paint.Color.ORANGE);
+            colorNames.put("pink", javafx.scene.paint.Color.PINK);
+            colorNames.put("red", javafx.scene.paint.Color.RED);
+            colorNames.put("white", javafx.scene.paint.Color.WHITE);
+            colorNames.put("yellow", javafx.scene.paint.Color.YELLOW);
+
+      }
+
+      public void init(){
+          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+          nbPixelsWidth = (int)screenSize.getWidth();
+          nbPixelsHeight = (int)screenSize.getHeight();
+          canvas = new Canvas(nbPixelsWidth, nbPixelsHeight);
+          setSize(nbPixelsWidth, nbPixelsHeight);
+          gc = canvas.getGraphicsContext2D();
+          pw= gc.getPixelWriter();
+	  clear("black");
+      }
+
+      public static void main(String[] args) {
+          launch(args);
+      }
+
+      @Override
+      public void start(Stage primaryStage) {
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+          Group root = new Group();
+          init();
+          run();
+          root.getChildren().add(canvas);
+          primaryStage.setScene(new Scene(root));
+          primaryStage.show();
+      }
+      public void setSize(int nWidth, int nHeight){
+          eltSize= Math.min(nbPixelsWidth/nWidth, nbPixelsHeight/nHeight);
+          canvas.setWidth(eltSize*nWidth);
+          canvas.setHeight(eltSize*nHeight);
+          data= new String [nWidth][nHeight];
+      }
+      public void drawElt(int posW, int posH, String color){
+          gc.setFill(colorNames.get(color));
+          gc.fillRect(posW*eltSize, posH*eltSize, eltSize, eltSize);
+          data[posW][posH]= color;
+      }
+
+      public String dataToCode(){
+          String res="setSize("+data.length+","+data[0].length+");\n";
+          for(int row= 0; row != data.length; ++row){
+              for(int col=0; col != data[row].length; ++col){
+                  res+="drawElt("+col+", "+row+", \""
+                      +data[col][row]+"\");\n";
+              }
+          }
+          return res;
+
+      }
+
+
+
+      public void run() {
+      }
+
+
+      public void drawPixel(int x, int y, String color){
+          pw.setColor(x+32, y+32, colorNames.get(color));
+      }
+      public void clear(String color){
+          gc.setFill(colorNames.get(color));
+          gc.fillRect(0, 0, nbPixelsWidth, nbPixelsHeight);
+      }
+      public void wait(int ms){//TODO
+      }
+  }
+
+#+END_SRC
+
+* Objectif
+** Ce qu'on veut apprendre
+Comment penser comme un(e) programmeu[r|se] :
+- expliciter et décomposer ses objectifs
+- composer les primitives dont on dispose (langage & bibliothèques)
+** Comment on va l'apprendre
+Pratiquer ! Le cours permet seulement de comprendre, pas
+d'apprendre. Il indique ce qu'il faut pratiquer.
+
+* Sauver le monde ! 
+D'une invasion spatiale (Space Invader™)
+
+
+[[file:AliensPointsSmall.gif]]
+
+** Objectif intermédiaire
+
+[[file:1-wave-sprites.png]]
+
+* _Programmation_ en Java
+/*Programmation*/ en Java.
+
+
+On va parler en Java™, mais pas de Java.
+
+** Code
+#+BEGIN_SRC java :tangle SpaceInvaders1.java
+  public class SpaceInvaders extends LearningGraphics {
+      public static void main(String[] args){
+          launch(args);
+      }
+      public void run(){
+          drawPixel(0, 0, "green");
+      }
+  }
+#+END_SRC
+** Se concentrer
+#+BEGIN_SRC java
+  blabla blabla SpaceInvaders blabla blablabla b
+      blabla blabla blabla blabla b blalba bl blalba b
+          blabla blalbla
+      b
+      blabla b 
+          drawPixel(0, 0, "green");
+      b
+  .b
+#+END_SRC
+** Image du résultat
+[[file:1-pixel.png]]
+
+* Au commencement était le pixel
+On donne une instruction à l'ordinateur :
+#+BEGIN_QUOTE
+Dessine un pixel à la ligne 0 et à la colonne 0, de couleur verte.
+#+END_QUOTE
+(On commence souvent à numéroter à partir de 0 en informatique, comme
+pour les étages avec un rez-de-chaussée).
+** Décomposition
+
+[Dessine un pixel] [à la ligne 0] et [à la colonne 0], [de couleur verte].
+
+** Règles d'écriture
+En langage naturelle, on peut tourner ses phrase de mille façons
+("Belle marquise, vos beaux yeux \dots").
+
+ Lorqu'on écrit un programme, il faut respecter strictement ce à quoi
+"s'attend" l'ordinateur.
+
+Attention au nombre, à la nature (au /type/)  et à l'ordre des /arguments/.
+
+Trouver les erreurs pour chaque ligne :
+#+BEGIN_SRC java
+drawPixel(0, "green", 0);
+drawpixel(0, 0, "green");
+drawPixel(0, 0, green);
+drawPixel(0., 0, green);
+drawPixel(0, 0, "green")
+#+END_SRC
+
+** Règles de substitution
+
+Comme en maths, ce sont les valeurs qui comptent (partout où l'on a
+"2" dans une expression mathématique, on pourrait écrire "1+1").
+
+Comme dans les langues naturelles en fait, où l'on peut remplacer un
+nom par un groupe nominal en fait.
+
+"La personne est en retard." \rightarrow "La personne qui est entrée
+dans la pièce est en retard." \rightarrow "La personne qui est entrée
+dans la pièce qui est au fond du couloir est en retard." \rightarrow \dots
+
+
+** Expressions
+Dans un programme, on parle d' /expressions/ (qui peut être composées
+de sous-expressions, qui peuvent elles-mêmes \dots)
+
+#+BEGIN_SRC java
+drawPixel(0+0, (1+2)-(4-1), "gr"+"e"+"en");
+#+END_SRC
+
+** Variables
+On peut stocker une valeur dans une variable. On peut ensuite
+récupérer cette valeur en utilisant la variable comme une expression
+(qui vaut la /dernière/ valeur stockée dans la variable).
+
+#+BEGIN_SRC java
+int x= 0;
+int y= x;
+drawPixel(x, y, "green");
+#+END_SRC
+
+** Type
+En java, chaque variable a un /type/ fixé (nombre entier =int=, chaîne
+de caractères =String=,\dots) indiqué à la /déclaration/. On ne peut
+stocker que les valeurs de ce type dans la variable.
+
+#+BEGIN_SRC java
+String color= "green"; // ceci est un commentaire
+int x="zéro"; // ne marche évidemment pas
+int y= "0"; // ne marche pas non plus
+drawPixel(x, y, color);
+#+END_SRC
+* Plusieurs pixels
+Un pixel ne se voit pas très bien.
+#+BEGIN_SRC java
+drawPixel(0, 0, "green");
+drawPixel(1, 0, "green");
+drawPixel(2, 0, "green");
+drawPixel(3, 0, "green");
+drawPixel(4, 0, "green");
+drawPixel(5, 0, "green");
+drawPixel(6, 0, "green");
+drawPixel(7, 0, "green");
+#+END_SRC
+
+** Image du résultat
+[[file:8-pixels.png]]
+
+
+* Répétitions \rightarrow Généralisation
+On ne veut surtout pas se répéter quand on programme. Répéter des
+choses, c'est à l'ordinateur de le faire ! Mais comment faire si ce ne
+sont pas exactement les mêmes choses qui sont répétées ?
+
+On "extrait" ce qui est identique : =drawPixel( , 0, "green");=, mais
+on a besoin de garder un premier argument qui, lui, sera /variable/ \rightarrow
+=drawPixel(x, 0, "green")=.
+
+
+Pour que le code soit compréhensible, il est essentiel de bien choisir le nom !
+** Code
+#+BEGIN_SRC java
+int x= 0;
+drawPixel(x, 0, "green");
+x=1; // on ne redéclare pas x, on le réutilise
+drawPixel(x, 0, "green");
+x=2;
+drawPixel(x, 0, "green");
+x=3;
+drawPixel(x, 0, "green");
+x=4;
+drawPixel(x, 0, "green");
+x=5;
+drawPixel(x, 0, "green");
+x=6;
+drawPixel(x, 0, "green");
+x=7;
+drawPixel(x, 0, "green");
+#+END_SRC
+Vu comme ça, on a pas vraiment gagné au change ☹.
+** Astuce
+Les valeurs de =x= ne sont pas n'importe lesquelles en fait, à chaque
+fois on *fait la même chose* : on passe à la valeur suivante.
+#+BEGIN_SRC java
+int x= 0;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+x= x+1;
+drawPixel(x, 0, "green");
+#+END_SRC
+** Code répété
+On y est presque ! Maintenant on peut dire à l'ordinateur de répéter :
+#+BEGIN_SRC java
+x= x+1;
+drawPixel(x, 0, "green");
+#+END_SRC
+ou
+#+BEGIN_SRC java
+drawPixel(x, 0, "green");
+x= x+1;
+#+END_SRC
+* Répétition en boucle
+On indique la condition d'arrêt bien sûr:
+#+BEGIN_SRC java
+  int x=0;
+  do{
+      drawPixel(x, 0, "green");
+      x=x+1;
+  }while(x <= 7);
+#+END_SRC
+** Idiomatismes
+En fait, ce type de code est tellement fréquent qu'il y a des façons
+plus concises de l'écrire. Par exemple :
+#+BEGIN_SRC java
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 0, "green");
+  }
+#+END_SRC
+* Un bloc en deux dimensions
+** Ce qu'on veut obtenir
+[[file:1-block.png]]
+** Code naïf
+#+BEGIN_SRC java
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 0, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 1, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 2, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 3, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 4, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 5, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 6, "green");
+  }
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, 7, "green");
+  }
+#+END_SRC
+** Même transformation
+#+BEGIN_SRC java
+  int y= 0;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+  y= y+1;
+  for(int x=0; x <= 7; x= x+1){
+      drawPixel(x, y, "green");
+  }
+#+END_SRC
+** Boucles imbriquées
+#+BEGIN_SRC java
+  for(int y=0; y <= 7; y= y+1){
+      for(int x=0; x <= 7; x= x+1){
+          drawPixel(x, y, "green");
+      }
+  }
+#+END_SRC
+* Généralisation \rightarrow fonction
+À partir de la possibilité de dessiner un pixel, on a pu dessiner un
+"bloc" de pixels. Ce qui rend =drawPixel()= utile, c'est qu'on peut
+l'utiliser pour dessiner des pixels :
+- à n'importe quelles coordonnées
+- de n'importe quelle couleur
+
+Parce que c'est une /fonction/.
+** Dessiner plusieurs blocs
+#+BEGIN_SRC java
+  for(int y=0; j <= 7; y= y+1){
+      for(int x=0; j <= 7; x= x+1){
+          drawPixel(x, y, "green");
+      }
+  }
+  for(int y=8; j <= 15; y= y+1){
+      for(int x=8; j <= 15; x= x+1){
+          drawPixel(x, y, "green");
+      }
+  }
+  for(int y=0; j <= 7; y= y+1){
+      for(int x=8; j <= 15; x= x+1){
+          drawPixel(x, y, "green");
+      }
+  }
+#+END_SRC
+** Généralisation maximale
+Dessin de n'importe quel carré :
+#+BEGIN_SRC java
+for(int y= topLeftY; y < topLeftY+height; y= y+1){
+  for(int x= topLeftX; x < topLefXt+width; x= x+1){
+    drawPixel(x, y, color);
+  }
+}
+#+END_SRC
+#+BEGIN_SRC java
+    public void drawSquare(int topLeftX, int topLeftY
+                                  , int  width, int height
+                                  , String color){
+    //...
+    }
+#+END_SRC
+Le nom et l'ordre des arguments sont cohérents avec =drawPixel()=.
+** Généralisation spécifique
+Dessin de n'importe quel bloc d'un affichage "pixellisé" :
+#+BEGIN_SRC java
+for(int y= row*BLOCK_SIZE; y < topLeft+ BLOCK_SIZE; y= y+1){
+  for(int x= col*BLOCK_SIZE; x < topLeft+ BLOCK_SIZE; x= x+1){
+    drawPixel(x, y, color);
+  }
+}
+#+END_SRC
+#+BEGIN_SRC java
+  public void drawBlock(int col, int row, String color){
+//...
+}
+
+#+END_SRC
+
+** Quelle abstraction choisir ?
+Les deux.
+#+BEGIN_SRC java
+  public static void drawBlock(int col, int row, String color){
+      drawSquare(col*BLOCK_SIZE, row*BLOCK_SIZE
+                 , BLOCK_SIZE, BLOCK_SIZE, color);
+  }
+#+END_SRC
+* Dessine-moi un alien !
+
+Un dessin, ce sera des blocs verts selon un motif en deux
+dimensions. On ne sait pas encore comment le faire, mais on sait qu'on
+peut le faire !
+
+** Résultat désiré
+[[file:1-sprite.png]]
+** Code pour dessiner une ligne
+#+BEGIN_SRC java
+drawBlock(1, 3, "green");
+drawBlock(2, 3, "green");
+drawBlock(4, 3, "green");
+drawBlock(5, 3, "green");
+drawBlock(6, 3, "green");
+drawBlock(8, 3, "green");
+drawBlock(9, 3, "green");
+#+END_SRC
+On voudrait pouvoir stocker un ensemble de valeurs comme ={1, 2, 4, 5,
+6, 8, 9}=. On peut utiliser pour cela un /tableau/, qui permet
+d'accéder à différentes case selon leur index.
+** Principe du tableau
+#+BEGIN_SRC java
+int[] row3= {1, 2, 4, 5, 6, 8, 9};
+drawBlock(row3[0], 3, "green");
+drawBlock(row3[1], 3, "green");
+drawBlock(row3[2], 3, "green");
+drawBlock(row3[3], 3, "green");
+drawBlock(row3[4], 3, "green");
+drawBlock(row3[5], 3, "green");
+drawBlock(row3[6], 3, "green");
+#+END_SRC
+#+BEGIN_SRC java
+  int[] row3= {1, 2, 4, 5, 6, 8, 9};
+  for(int index=0; index < row3.length; index= index+1){
+      drawBlock(row3[index], 3, "green");
+  }
+#+END_SRC
+=row3.length= est le nombre de cases du tableau =row3=.
+** 2 Dimensions
+En fait, on voudrait pouvoir stocker un ensemble de tableaux comme
+={{2,8},{3,7},{2,3,4,5,6,7,8},{1, 2, 4, 5, 6, 8, 9}...}=.
+
+On peut (évidemment !) utiliser pour cela un tableau (de tableaux !) :
+#+BEGIN_SRC java
+  int[][] spaceInvaderRows=
+  {{2,8}
+   ,{3,7}
+   ,{2,3,4,5,6,7,8}
+   ,{1, 2, 4, 5, 6, 8, 9}
+   ,{0,1,2,3,4,5,6,7,8,9,10}
+   ,{0,2,3,4,5,6,7,8,10}
+   ,{0,2,8,10}
+   ,{3,4,6,7}};
+  for(int r=0; r < spaceInvaderRows.length; r= r+1){
+      int[] row= spaceInvaderRows[r];
+      for(int index=0; index < row.length; index= index+1){
+          drawBlock(row[index], r, "green");
+      }
+  }
+#+END_SRC
+** Accès direct à un tableau de tableaux
+En fait, on peut (évidemment !) utiliser (i.e. indexer) directement le
+tableau qui est dans une case d'un tableau :
+#+BEGIN_SRC java
+  for(int r=0; r < spaceInvaderRows.length; r= r+1){
+      for(int index=0; index < row.length; index= index+1){
+          drawBlock(spaceInvaderRows[r][index], r, "green");
+      }
+  }
+#+END_SRC
+
+* Généralisation
+On a séparé la définition de l'image d'un alien (le /sprite/
+=spaceInvaderRows=) de son affichage. D'ailleurs on fera mieux de
+renommer =spaceInvaderRows= en =spaceInvaderSprite= car il vaut mieux
+nommer en fonction de ce que ça fait plutôt que ce que c'est. En
+effet, on pourrait changer la façon dont on représente le sprite
+(e.g. /bitmap/). Pour l'instant un sprite ne peut être que d'une seule
+couleur. 
+
+L'affichage est donc indépendant de l'image à représenter, on peut le
+réutiliser pour représenter le vaisseau du joueur, les missiles, etc.
+Chacun pourra avoir sa couleur propre.
+On voudra aussi bien évidemment pourvoir dessiner un sprite
+en n'importe quel point (pixellisé) de la fenêtre.
+** fonction
+#+BEGIN_SRC java
+  public void drawSprite(int col, int row, int[][] sprite, String color){
+    for(int r=0; r < sprite.length; r= r+1){
+        for(int index=0; index < sprite[r].length; index= index+1){
+            drawBlock(col+sprite[r][index], row+r, color);
+        }
+    }
+  }
+#+END_SRC
+
+* Des vagues d'envahisseurs
+Si l'on peut dessiner un pixel/bloc/sprite, on peut en dessiner autant
+qu'on veut :
+- où on veut
+- de la couleur qu'on veut
+
+Puisque que l'on a /implémenté/ cela de façon générique/réutilisable.
+** une ligne d'envahisseurs
+#+BEGIN_SRC java
+  for(int c=0; c < (nbPixelsWidth/BLOCK_SIZE)-(ALIEN_WIDTH+1); c= c + (ALIEN_WIDTH+1)){
+      drawSprite(c, 0, spaceInvaderSprite, "green");
+  }
+#+END_SRC
+** Image du résultat
+[[file:1-line-sprites.png]]
+** une vague d'envahisseur
+#+BEGIN_SRC java
+  int nbLines= 4;
+  for(int line=0; line < nbLines; line= line +1){
+    for(int c=0; c < (nbPixelsWidth/BLOCK_SIZE)-(ALIEN_WIDTH+1); c= c + (ALIEN_WIDTH+1)){
+        drawSprite(c, line*ALIEN_HEIGHT, spaceInvaderSprite, "green");
+    }
+#+END_SRC
+** Image du résultat
+[[file:1-wave-sprites.png]]
+* Récapitulatif
+#+BEGIN_SRC java :tangle SpaceInvaders.java 
+  public class SpaceInvaders extends LearningGraphics {
+      public static void main(String[] args){
+          launch(args);
+      }
+      public final static int BLOCK_SIZE= 8;
+      public final static int ALIEN_WIDTH= 11;
+      public final static int ALIEN_HEIGHT= 11;
+      public  void drawSquare(int topLeftX, int topLeftY
+                              , int  width, int height
+                              , String color){
+          for(int y= topLeftY; y < topLeftY+height; y= y+1){
+              for(int x= topLeftX; x < topLeftX+width; x= x+1){
+                  drawPixel(x, y, color);
+              }
+          }
+      }
+      public void drawBlock(int col, int row, String color){
+          drawSquare(col*BLOCK_SIZE, row*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, color);
+      }
+      public void drawSprite(int col, int row, int[][] sprite, String color){
+          for(int r=0; r < sprite.length; r= r+1){
+              for(int index=0; index < sprite[r].length; index= index+1){
+                  drawBlock(col+sprite[r][index], row+r, color);
+              }
+          }
+      }
+#+END_SRC
+#+REVEAL: split
+#+BEGIN_SRC java :tangle SpaceInvaders.java 
+
+      public void run(){
+          int[][] spaceInvaderSprite=
+              {{2,8}
+               ,{3,7}
+               ,{2,3,4,5,6,7,8}
+               ,{1, 2, 4, 5, 6, 8, 9}
+               ,{0,1,2,3,4,5,6,7,8,9,10}
+               ,{0,2,3,4,5,6,7,8,10}
+               ,{0,2,8,10}
+               ,{3,4,6,7}};
+          int nbLines= 4;
+          for(int line=0; line < nbLines; line= line +1){
+              for(int c=0;
+                  c < (nbPixelsWidth/BLOCK_SIZE)
+                      -(ALIEN_WIDTH+1)
+                      ; c= c + (ALIEN_WIDTH+1)){
+                  drawSprite(c, line*ALIEN_HEIGHT, spaceInvaderSprite, "green");
+              }
+          }
+      }
+  }
+#+END_SRC
+
+* Mouvement :noexport:
+Il suffit d'être capable :
+- de dessiner
+- d'attendre un certain temps
+- d'effacer (pour redessiner)
+
+Et de faire cela /en boucle/.
+** Code
+#+BEGIN_SRC java
+  int[] spaceInvaderSprite=
+        {{2,8}
+     ,{3,7}
+     ,{2,3,4,5,6,7,8}
+     ,{1, 2, 4, 5, 6, 8, 9}
+     ,{0,1,2,3,4,5,6,7,8,9,10}
+     ,{0,2,3,4,5,6,7,8,10}
+     ,{0,2,8,10}
+     ,{3,4,6,7}};
+
+
+  int c=0;
+  int r=0;
+  do{
+      drawSprite(c, r, spaceInvaderSprite, "green");
+      c= c+1;
+      wait(20);// en ms
+      clear("black");
+  }while( c< WIDTH);
+
+#+END_SRC
+
+
+* Trajectoire :noexport:
+On veut aller à droite jusqu'au bord droite, puis en bas, puis à
+gauche jusqu'au bord gauche, puis en bas, puis à droite \dots jusqu'au
+bord inférieur.
+
+- "aller à droite" \rightarrow =c =c+1=
+- "aller à gauche" \rightarrow =c =c-1=
+- "aller en bas" \rightarrow =r =r+1=
+- "au bord droite" \rightarrow =c <WIDTH=
+- "au bord gauche" \rightarrow =c >0=
+- "au bord inférieur" \rightarrow =r < HEIGHT=
+
+** Astuce
+On veut éviter les "ensuite" qui induisent une *complexité* parce
+qu'ils imposent une séquence qui prend en compte ce qui vient d'être
+fait. On trouve une reformulation qui ne dépende que de l'état à
+chaque instant :
+#+BEGIN_QUOTE
+Si on est sur une ligne paire (0,2,\dots), si on est au bord droit,
+aller en bas, sinon aller à droite.  Sinon (on est donc sur une ligne
+impaire), si on est au bord gauche, aller en bas, sinon, aller à gauche.
+Tant qu'on est pas au bord inférieur.
+#+END_QUOTE
+
+** Code
+#+BEGIN_SRC java
+  int c=0;
+  int r=0;
+  do{
+      displaySprite(c, r, spaceInvaderSprite, "green");
+      if((r % 2)== 0){
+          if(c == WIDTH-1){
+              r= r+1;
+          }else{
+              c= c+1;
+          }
+      }else{
+          if(c == 0){
+              r= r+1;
+          }else{
+              c= c-1;
+          }
+      }
+      wait(20);
+  }while(r < HEIGHT);
+#+END_SRC
