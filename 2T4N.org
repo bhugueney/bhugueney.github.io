@@ -1,4 +1,4 @@
-#+TITLE: Programmer:@@latex:\\@@ @@html:<br>@@ composer des idées simples @@latex:\\@@ @@html:<br>@@pour des pensées complexes
+#+TITLE: Programmer @@latex:\\@@ @@html:<br>@@idées simples @@latex:\\@@ @@html:<br>@@pensées complexes
 #+AUTHOR:
 #+EMAIL: teaching@bernard-hugueney.org
 
@@ -445,7 +445,7 @@ Parce que c'est une /fonction/.
 Dessin de n'importe quel carré :
 #+BEGIN_SRC java
 for(int y= topLeftY; y < topLeftY+height; y= y+1){
-  for(int x= topLeftX; x < topLefXt+width; x= x+1){
+  for(int x= topLeftX; x < topLeftX+width; x= x+1){
     drawPixel(x, y, color);
   }
 }
@@ -502,7 +502,7 @@ drawBlock(9, 3, "green");
 #+END_SRC
 On voudrait pouvoir stocker un ensemble de valeurs comme ={1, 2, 4, 5,
 6, 8, 9}=. On peut utiliser pour cela un /tableau/, qui permet
-d'accéder à différentes case selon leur index.
+d'accéder à différentes cases selon leur index.
 ** Principe du tableau
 #+BEGIN_SRC java
 int[] row3= {1, 2, 4, 5, 6, 8, 9};
@@ -553,7 +553,8 @@ tableau qui est dans une case d'un tableau :
       }
   }
 #+END_SRC
-
+** Image du résultat
+[[file:1-sprite.png]]
 * Généralisation
 On a séparé la définition de l'image d'un alien (le /sprite/
 =spaceInvaderRows=) de son affichage. D'ailleurs on fera mieux de

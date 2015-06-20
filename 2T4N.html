@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8"/>
-<title>Programmer: <br> composer des idées simples  <br>pour des pensées complexes</title>
+<title>Programmer  <br>idées simples  <br>pensées complexes</title>
 
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/reveal.css"/>
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/theme/moon.css" id="theme"/>
@@ -23,14 +23,14 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1>Programmer: <br> composer des idées simples  <br>pour des pensées complexes</h1>
+<h1>Programmer  <br>idées simples  <br>pensées complexes</h1>
 <h2></h2>
 <h2><a href="mailto:teaching@bernard-hugueney.org">teaching@bernard-hugueney.org</a></h2>
 <h2></h2>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
-<h2>Table of Contents</h2>
+<h2>Table des matières</h2>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#/slide-orgheadline3">1. Objectif</a></li>
@@ -42,10 +42,10 @@
 <li><a href="#/slide-orgheadline24">7. Répétition en boucle</a></li>
 <li><a href="#/slide-orgheadline29">8. Un bloc en deux dimensions</a></li>
 <li><a href="#/slide-orgheadline34">9. Généralisation &rarr; fonction</a></li>
-<li><a href="#/slide-orgheadline40">10. Dessine-moi un alien !</a></li>
-<li><a href="#/slide-orgheadline42">11. Généralisation</a></li>
-<li><a href="#/slide-orgheadline47">12. Des vagues d'envahisseurs</a></li>
-<li><a href="#/slide-orgheadline48">13. Récapitulatif</a></li>
+<li><a href="#/slide-orgheadline41">10. Dessine-moi un alien !</a></li>
+<li><a href="#/slide-orgheadline43">11. Généralisation</a></li>
+<li><a href="#/slide-orgheadline48">12. Des vagues d'envahisseurs</a></li>
+<li><a href="#/slide-orgheadline49">13. Récapitulatif</a></li>
 </ul>
 </div>
 </div>
@@ -578,7 +578,7 @@ Dessin de n'importe quel carré :
 <div class="org-src-container">
 
 <pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= topLeftY; y &lt; <span style="color: #228b22;">topLeftY</span>+height; y= y+1){
-  <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= topLeftX; x &lt; <span style="color: #228b22;">topLefXt</span>+width; x= x+1){
+  <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= topLeftX; x &lt; <span style="color: #228b22;">topLeftX</span>+width; x= x+1){
     drawPixel(x, y, color);
   }
 }
@@ -636,8 +636,8 @@ Les deux.
 </section>
 </section>
 <section>
-<section id="slide-orgheadline40">
-<h2 id="orgheadline40"><span class="section-number-2">10</span> Dessine-moi un alien !</h2>
+<section id="slide-orgheadline41">
+<h2 id="orgheadline41"><span class="section-number-2">10</span> Dessine-moi un alien !</h2>
 <p>
 Un dessin, ce sera des blocs verts selon un motif en deux
 dimensions. On ne sait pas encore comment le faire, mais on sait qu'on
@@ -669,7 +669,7 @@ drawBlock(9, 3, <span style="color: #8b2252;">"green"</span>);
 <p>
 On voudrait pouvoir stocker un ensemble de valeurs comme <code>{1, 2, 4, 5,
 6, 8, 9}</code>. On peut utiliser pour cela un <i>tableau</i>, qui permet
-d'accéder à différentes case selon leur index.
+d'accéder à différentes cases selon leur index.
 </p>
 </section>
 <section id="slide-orgheadline37">
@@ -743,12 +743,19 @@ tableau qui est dans une case d'un tableau :
 }
 </pre>
 </div>
+</section>
+<section id="slide-orgheadline40">
+<h3 id="orgheadline40"><span class="section-number-3">10.6</span> Image du résultat</h3>
 
+<div class="figure">
+<p><img src="1-sprite.png" alt="1-sprite.png" />
+</p>
+</div>
 </section>
 </section>
 <section>
-<section id="slide-orgheadline42">
-<h2 id="orgheadline42"><span class="section-number-2">11</span> Généralisation</h2>
+<section id="slide-orgheadline43">
+<h2 id="orgheadline43"><span class="section-number-2">11</span> Généralisation</h2>
 <p>
 On a séparé la définition de l'image d'un alien (le <i>sprite</i>
 <code>spaceInvaderRows</code>) de son affichage. D'ailleurs on fera mieux de
@@ -767,8 +774,8 @@ On voudra aussi bien évidemment pourvoir dessiner un sprite
 en n'importe quel point (pixellisé) de la fenêtre.
 </p>
 </section>
-<section id="slide-orgheadline41">
-<h3 id="orgheadline41"><span class="section-number-3">11.1</span> fonction</h3>
+<section id="slide-orgheadline42">
+<h3 id="orgheadline42"><span class="section-number-3">11.1</span> fonction</h3>
 <div class="org-src-container">
 
 <pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawSprite</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">col</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">row</span>, <span style="color: #228b22;">int</span>[][] <span style="color: #a0522d;">sprite</span>, <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
@@ -784,8 +791,8 @@ en n'importe quel point (pixellisé) de la fenêtre.
 </section>
 </section>
 <section>
-<section id="slide-orgheadline47">
-<h2 id="orgheadline47"><span class="section-number-2">12</span> Des vagues d'envahisseurs</h2>
+<section id="slide-orgheadline48">
+<h2 id="orgheadline48"><span class="section-number-2">12</span> Des vagues d'envahisseurs</h2>
 <p>
 Si l'on peut dessiner un pixel/bloc/sprite, on peut en dessiner autant
 qu'on veut :
@@ -800,8 +807,8 @@ qu'on veut :
 Puisque que l'on a <i>implémenté</i> cela de façon générique/réutilisable.
 </p>
 </section>
-<section id="slide-orgheadline43">
-<h3 id="orgheadline43"><span class="section-number-3">12.1</span> une ligne d'envahisseurs</h3>
+<section id="slide-orgheadline44">
+<h3 id="orgheadline44"><span class="section-number-3">12.1</span> une ligne d'envahisseurs</h3>
 <div class="org-src-container">
 
 <pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">c</span>=0; c &lt; (nbPixelsWidth/BLOCK_SIZE)-(ALIEN_WIDTH+1); c= c + (ALIEN_WIDTH+1)){
@@ -810,16 +817,16 @@ Puisque que l'on a <i>implémenté</i> cela de façon générique/réutilisable.
 </pre>
 </div>
 </section>
-<section id="slide-orgheadline44">
-<h3 id="orgheadline44"><span class="section-number-3">12.2</span> Image du résultat</h3>
+<section id="slide-orgheadline45">
+<h3 id="orgheadline45"><span class="section-number-3">12.2</span> Image du résultat</h3>
 
 <div class="figure">
 <p><img src="1-line-sprites.png" alt="1-line-sprites.png" />
 </p>
 </div>
 </section>
-<section id="slide-orgheadline45">
-<h3 id="orgheadline45"><span class="section-number-3">12.3</span> une vague d'envahisseur</h3>
+<section id="slide-orgheadline46">
+<h3 id="orgheadline46"><span class="section-number-3">12.3</span> une vague d'envahisseur</h3>
 <div class="org-src-container">
 
 <pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">nbLines</span>= 4;
@@ -830,8 +837,8 @@ Puisque que l'on a <i>implémenté</i> cela de façon générique/réutilisable.
 </pre>
 </div>
 </section>
-<section id="slide-orgheadline46">
-<h3 id="orgheadline46"><span class="section-number-3">12.4</span> Image du résultat</h3>
+<section id="slide-orgheadline47">
+<h3 id="orgheadline47"><span class="section-number-3">12.4</span> Image du résultat</h3>
 
 <div class="figure">
 <p><img src="1-wave-sprites.png" alt="1-wave-sprites.png" />
@@ -840,8 +847,8 @@ Puisque que l'on a <i>implémenté</i> cela de façon générique/réutilisable.
 </section>
 </section>
 <section>
-<section id="slide-orgheadline48">
-<h2 id="orgheadline48"><span class="section-number-2">13</span> Récapitulatif</h2>
+<section id="slide-orgheadline49">
+<h2 id="orgheadline49"><span class="section-number-2">13</span> Récapitulatif</h2>
 <div class="org-src-container">
 
 <pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">SpaceInvaders</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">LearningGraphics</span> {
