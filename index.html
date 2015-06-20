@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<title>Programmer  <br>idées simples  <br>pensées complexes</title>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/reveal.css"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/theme/moon.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/2.5.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>Programmer  <br>idées simples  <br>pensées complexes</h1>
+<h2></h2>
+<h2><a href="mailto:teaching@bernard-hugueney.org">teaching@bernard-hugueney.org</a></h2>
+<h2></h2>
+</section>
+<section id="table-of-contents">
+<div id="table-of-contents">
+<h2>Table des matières</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-orgheadline3">1. Objectif</a></li>
+<li><a href="#/slide-orgheadline5">2. Sauver le monde !</a></li>
+<li><a href="#/slide-orgheadline9">3. <span class="underline">Programmation</span> en Java</a></li>
+<li><a href="#/slide-orgheadline16">4. Au commencement était le pixel</a></li>
+<li><a href="#/slide-orgheadline18">5. Plusieurs pixels</a></li>
+<li><a href="#/slide-orgheadline22">6. Répétitions &rarr; Généralisation</a></li>
+<li><a href="#/slide-orgheadline24">7. Répétition en boucle</a></li>
+<li><a href="#/slide-orgheadline29">8. Un bloc en deux dimensions</a></li>
+<li><a href="#/slide-orgheadline34">9. Généralisation &rarr; fonction</a></li>
+<li><a href="#/slide-orgheadline41">10. Dessine-moi un alien !</a></li>
+<li><a href="#/slide-orgheadline43">11. Généralisation</a></li>
+<li><a href="#/slide-orgheadline48">12. Des vagues d'envahisseurs</a></li>
+<li><a href="#/slide-orgheadline49">13. Récapitulatif</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> Objectif</h2>
+<div class="outline-text-2" id="text-1">
+</div></section>
+<section id="slide-orgheadline1">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Ce qu'on veut apprendre</h3>
+<p>
+Comment penser comme un(e) programmeu[r|se] :
+</p>
+<ul>
+<li>expliciter et décomposer ses objectifs</li>
+<li>composer les primitives dont on dispose (langage &amp; bibliothèques)</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline2">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Comment on va l'apprendre</h3>
+<p>
+Pratiquer ! Le cours permet seulement de comprendre, pas
+d'apprendre. Il indique ce qu'il faut pratiquer.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline5">
+<h2 id="orgheadline5"><span class="section-number-2">2</span> Sauver le monde !</h2>
+<p>
+D'une invasion spatiale (Space Invader™)
+</p>
+
+
+
+<div class="figure">
+<p><img src="AliensPointsSmall.gif" alt="AliensPointsSmall.gif" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgheadline4">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Objectif intermédiaire</h3>
+
+<div class="figure">
+<p><img src="1-wave-sprites.png" alt="1-wave-sprites.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline9">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> <span class="underline">Programmation</span> en Java</h2>
+<p>
+<i><b>Programmation</b></i> en Java.
+</p>
+
+
+<p>
+On va parler en Java™, mais pas de Java.
+</p>
+
+</section>
+<section id="slide-orgheadline6">
+<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">SpaceInvaders</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">LearningGraphics</span> {
+    <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">String</span>[] <span style="color: #a0522d;">args</span>){
+        launch(args);
+    }
+    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">run</span>(){
+        drawPixel(0, 0, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline7">
+<h3 id="orgheadline7"><span class="section-number-3">3.2</span> Se concentrer</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java">blabla blabla SpaceInvaders blabla blablabla b
+    blabla blabla blabla blabla b blalba bl blalba b
+        blabla blalbla
+    b
+    blabla <span style="color: #228b22;">b</span> 
+        <span style="color: #0000ff;">drawPixel</span>(0, 0, <span style="color: #8b2252;">"green"</span>);
+    b
+.b
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline8">
+<h3 id="orgheadline8"><span class="section-number-3">3.3</span> Image du résultat</h3>
+
+<div class="figure">
+<p><img src="1-pixel.png" alt="1-pixel.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline16">
+<h2 id="orgheadline16"><span class="section-number-2">4</span> Au commencement était le pixel</h2>
+<p>
+On donne une instruction à l'ordinateur :
+</p>
+<blockquote nil>
+<p>
+Dessine un pixel à la ligne 0 et à la colonne 0, de couleur verte.
+</p>
+</blockquote>
+<p>
+(On commence souvent à numéroter à partir de 0 en informatique, comme
+pour les étages avec un rez-de-chaussée).
+</p>
+</section>
+<section id="slide-orgheadline10">
+<h3 id="orgheadline10"><span class="section-number-3">4.1</span> Décomposition</h3>
+<p>
+[Dessine un pixel] [à la ligne 0] et [à la colonne 0], [de couleur verte].
+</p>
+
+</section>
+<section id="slide-orgheadline11">
+<h3 id="orgheadline11"><span class="section-number-3">4.2</span> Règles d'écriture</h3>
+<p>
+En langage naturelle, on peut tourner ses phrase de mille façons
+("Belle marquise, vos beaux yeux &hellip;").
+</p>
+
+<p>
+ Lorqu'on écrit un programme, il faut respecter strictement ce à quoi
+"s'attend" l'ordinateur.
+</p>
+
+<p>
+Attention au nombre, à la nature (au <i>type</i>)  et à l'ordre des <i>arguments</i>.
+</p>
+
+<p>
+Trouver les erreurs pour chaque ligne :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java">drawPixel(0, <span style="color: #8b2252;">"green"</span>, 0);
+drawpixel(0, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(0, 0, green);
+drawPixel(0., 0, green);
+drawPixel(0, 0, <span style="color: #8b2252;">"green"</span>)
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline12">
+<h3 id="orgheadline12"><span class="section-number-3">4.3</span> Règles de substitution</h3>
+<p>
+Comme en maths, ce sont les valeurs qui comptent (partout où l'on a
+"2" dans une expression mathématique, on pourrait écrire "1+1").
+</p>
+
+<p>
+Comme dans les langues naturelles en fait, où l'on peut remplacer un
+nom par un groupe nominal en fait.
+</p>
+
+<p>
+"La personne est en retard." &rarr; "La personne qui est entrée
+dans la pièce est en retard." &rarr; "La personne qui est entrée
+dans la pièce qui est au fond du couloir est en retard." &rarr; &hellip;
+</p>
+
+
+</section>
+<section id="slide-orgheadline13">
+<h3 id="orgheadline13"><span class="section-number-3">4.4</span> Expressions</h3>
+<p>
+Dans un programme, on parle d' <i>expressions</i> (qui peut être composées
+de sous-expressions, qui peuvent elles-mêmes &hellip;)
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-java">drawPixel(0+0, (1+2)-(4-1), <span style="color: #8b2252;">"gr"</span>+<span style="color: #8b2252;">"e"</span>+<span style="color: #8b2252;">"en"</span>);
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline14">
+<h3 id="orgheadline14"><span class="section-number-3">4.5</span> Variables</h3>
+<p>
+On peut stocker une valeur dans une variable. On peut ensuite
+récupérer cette valeur en utilisant la variable comme une expression
+(qui vaut la <i>dernière</i> valeur stockée dans la variable).
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= 0;
+<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= x;
+drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline15">
+<h3 id="orgheadline15"><span class="section-number-3">4.6</span> Type</h3>
+<p>
+En java, chaque variable a un <i>type</i> fixé (nombre entier <code>int</code>, chaîne
+de caractères <code>String</code>,&hellip;) indiqué à la <i>déclaration</i>. On ne peut
+stocker que les valeurs de ce type dans la variable.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>= <span style="color: #8b2252;">"green"</span>; <span style="color: #b22222;">// </span><span style="color: #b22222;">ceci est un commentaire</span>
+<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=<span style="color: #8b2252;">"z&#233;ro"</span>; <span style="color: #b22222;">// </span><span style="color: #b22222;">ne marche &#233;videmment pas</span>
+<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= <span style="color: #8b2252;">"0"</span>; <span style="color: #b22222;">// </span><span style="color: #b22222;">ne marche pas non plus</span>
+drawPixel(x, y, color);
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline18">
+<h2 id="orgheadline18"><span class="section-number-2">5</span> Plusieurs pixels</h2>
+<p>
+Un pixel ne se voit pas très bien.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java">drawPixel(0, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(1, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(2, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(3, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(4, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(5, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(6, 0, <span style="color: #8b2252;">"green"</span>);
+drawPixel(7, 0, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline17">
+<h3 id="orgheadline17"><span class="section-number-3">5.1</span> Image du résultat</h3>
+
+<div class="figure">
+<p><img src="8-pixels.png" alt="8-pixels.png" />
+</p>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline22">
+<h2 id="orgheadline22"><span class="section-number-2">6</span> Répétitions &rarr; Généralisation</h2>
+<p>
+On ne veut surtout pas se répéter quand on programme. Répéter des
+choses, c'est à l'ordinateur de le faire ! Mais comment faire si ce ne
+sont pas exactement les mêmes choses qui sont répétées ?
+</p>
+
+<p>
+On "extrait" ce qui est identique : <code>drawPixel( , 0, "green");</code>, mais
+on a besoin de garder un premier argument qui, lui, sera <i>variable</i> &rarr;
+<code>drawPixel(x, 0, "green")</code>.
+</p>
+
+
+<p>
+Pour que le code soit compréhensible, il est essentiel de bien choisir le nom !
+</p>
+</section>
+<section id="slide-orgheadline19">
+<h3 id="orgheadline19"><span class="section-number-3">6.1</span> Code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= 0;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=1; <span style="color: #b22222;">// </span><span style="color: #b22222;">on ne red&#233;clare pas x, on le r&#233;utilise</span>
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=2;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=3;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=4;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=5;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=6;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x=7;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+<p>
+Vu comme ça, on a pas vraiment gagné au change ☹.
+</p>
+</section>
+<section id="slide-orgheadline20">
+<h3 id="orgheadline20"><span class="section-number-3">6.2</span> Astuce</h3>
+<p>
+Les valeurs de <code>x</code> ne sont pas n'importe lesquelles en fait, à chaque
+fois on <b>fait la même chose</b> : on passe à la valeur suivante.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= 0;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline21">
+<h3 id="orgheadline21"><span class="section-number-3">6.3</span> Code répété</h3>
+<p>
+On y est presque ! Maintenant on peut dire à l'ordinateur de répéter :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java">x= x+1;
+drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+<p>
+ou
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java">drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+x= x+1;
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline24">
+<h2 id="orgheadline24"><span class="section-number-2">7</span> Répétition en boucle</h2>
+<p>
+On indique la condition d'arrêt bien sûr:
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0;
+<span style="color: #a020f0;">do</span>{
+    drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+    x=x+1;
+}<span style="color: #a020f0;">while</span>(x &lt;= 7);
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline23">
+<h3 id="orgheadline23"><span class="section-number-3">7.1</span> Idiomatismes</h3>
+<p>
+En fait, ce type de code est tellement fréquent qu'il y a des façons
+plus concises de l'écrire. Par exemple :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+}
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline29">
+<h2 id="orgheadline29"><span class="section-number-2">8</span> Un bloc en deux dimensions</h2>
+<div class="outline-text-2" id="text-8">
+</div></section>
+<section id="slide-orgheadline25">
+<h3 id="orgheadline25"><span class="section-number-3">8.1</span> Ce qu'on veut obtenir</h3>
+
+<div class="figure">
+<p><img src="1-block.png" alt="1-block.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline26">
+<h3 id="orgheadline26"><span class="section-number-3">8.2</span> Code naïf</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 0, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 1, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 2, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 3, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 4, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 5, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 6, <span style="color: #8b2252;">"green"</span>);
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, 7, <span style="color: #8b2252;">"green"</span>);
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline27">
+<h3 id="orgheadline27"><span class="section-number-3">8.3</span> Même transformation</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= 0;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+y= y+1;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+    drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline28">
+<h3 id="orgheadline28"><span class="section-number-3">8.4</span> Boucles imbriquées</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>=0; y &lt;= 7; y= y+1){
+    <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; x &lt;= 7; x= x+1){
+        drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline34">
+<h2 id="orgheadline34"><span class="section-number-2">9</span> Généralisation &rarr; fonction</h2>
+<p>
+À partir de la possibilité de dessiner un pixel, on a pu dessiner un
+"bloc" de pixels. Ce qui rend <code>drawPixel()</code> utile, c'est qu'on peut
+l'utiliser pour dessiner des pixels :
+</p>
+<ul>
+<li>à n'importe quelles coordonnées</li>
+<li>de n'importe quelle couleur</li>
+
+</ul>
+
+<p>
+Parce que c'est une <i>fonction</i>.
+</p>
+</section>
+<section id="slide-orgheadline30">
+<h3 id="orgheadline30"><span class="section-number-3">9.1</span> Dessiner plusieurs blocs</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>=0; j &lt;= 7; y= y+1){
+    <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=0; j &lt;= 7; x= x+1){
+        drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>=8; j &lt;= 15; y= y+1){
+    <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=8; j &lt;= 15; x= x+1){
+        drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>=0; j &lt;= 7; y= y+1){
+    <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=8; j &lt;= 15; x= x+1){
+        drawPixel(x, y, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline31">
+<h3 id="orgheadline31"><span class="section-number-3">9.2</span> Généralisation maximale</h3>
+<p>
+Dessin de n'importe quel carré :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= topLeftY; y &lt; <span style="color: #228b22;">topLeftY</span>+height; y= y+1){
+  <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= topLeftX; x &lt; <span style="color: #228b22;">topLeftX</span>+width; x= x+1){
+    drawPixel(x, y, color);
+  }
+}
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawSquare</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">topLeftX</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">topLeftY</span>
+                              , <span style="color: #228b22;">int</span>  <span style="color: #a0522d;">width</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">height</span>
+                              , <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+<span style="color: #b22222;">//</span><span style="color: #b22222;">...</span>
+}
+</pre>
+</div>
+<p>
+Le nom et l'ordre des arguments sont cohérents avec <code>drawPixel()</code>.
+</p>
+</section>
+<section id="slide-orgheadline32">
+<h3 id="orgheadline32"><span class="section-number-3">9.3</span> Généralisation spécifique</h3>
+<p>
+Dessin de n'importe quel bloc d'un affichage "pixellisé" :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= row*BLOCK_SIZE; y &lt; <span style="color: #228b22;">topLeft</span>+ BLOCK_SIZE; y= y+1){
+  <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= col*BLOCK_SIZE; x &lt; <span style="color: #228b22;">topLeft</span>+ BLOCK_SIZE; x= x+1){
+    drawPixel(x, y, color);
+  }
+}
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-java">  <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawBlock</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">col</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">row</span>, <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+<span style="color: #b22222;">//</span><span style="color: #b22222;">...</span>
+}
+</pre>
+</div>
+
+</section>
+<section id="slide-orgheadline33">
+<h3 id="orgheadline33"><span class="section-number-3">9.4</span> Quelle abstraction choisir ?</h3>
+<p>
+Les deux.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawBlock</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">col</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">row</span>, <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+    drawSquare(col*BLOCK_SIZE, row*BLOCK_SIZE
+               , BLOCK_SIZE, BLOCK_SIZE, color);
+}
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline41">
+<h2 id="orgheadline41"><span class="section-number-2">10</span> Dessine-moi un alien !</h2>
+<p>
+Un dessin, ce sera des blocs verts selon un motif en deux
+dimensions. On ne sait pas encore comment le faire, mais on sait qu'on
+peut le faire !
+</p>
+
+</section>
+<section id="slide-orgheadline35">
+<h3 id="orgheadline35"><span class="section-number-3">10.1</span> Résultat désiré</h3>
+
+<div class="figure">
+<p><img src="1-sprite.png" alt="1-sprite.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline36">
+<h3 id="orgheadline36"><span class="section-number-3">10.2</span> Code pour dessiner une ligne</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java">drawBlock(1, 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(2, 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(4, 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(5, 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(6, 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(8, 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(9, 3, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+<p>
+On voudrait pouvoir stocker un ensemble de valeurs comme <code>{1, 2, 4, 5,
+6, 8, 9}</code>. On peut utiliser pour cela un <i>tableau</i>, qui permet
+d'accéder à différentes cases selon leur index.
+</p>
+</section>
+<section id="slide-orgheadline37">
+<h3 id="orgheadline37"><span class="section-number-3">10.3</span> Principe du tableau</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span>[] <span style="color: #a0522d;">row3</span>= {1, 2, 4, 5, 6, 8, 9};
+drawBlock(row3[0], 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(row3[1], 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(row3[2], 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(row3[3], 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(row3[4], 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(row3[5], 3, <span style="color: #8b2252;">"green"</span>);
+drawBlock(row3[6], 3, <span style="color: #8b2252;">"green"</span>);
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span>[] <span style="color: #a0522d;">row3</span>= {1, 2, 4, 5, 6, 8, 9};
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">index</span>=0; index &lt; row3.<span style="color: #228b22;">length</span>; index= index+1){
+    drawBlock(row3[index], 3, <span style="color: #8b2252;">"green"</span>);
+}
+</pre>
+</div>
+<p>
+<code>row3.length</code> est le nombre de cases du tableau <code>row3</code>.
+</p>
+</section>
+<section id="slide-orgheadline38">
+<h3 id="orgheadline38"><span class="section-number-3">10.4</span> 2 Dimensions</h3>
+<p>
+En fait, on voudrait pouvoir stocker un ensemble de tableaux comme
+<code>{{2,8},{3,7},{2,3,4,5,6,7,8},{1, 2, 4, 5, 6, 8, 9}...}</code>.
+</p>
+
+<p>
+On peut (évidemment !) utiliser pour cela un tableau (de tableaux !) :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span>[][] <span style="color: #a0522d;">spaceInvaderRows</span>=
+{{2,8}
+ ,{3,7}
+ ,{2,3,4,5,6,7,8}
+ ,{1, 2, 4, 5, 6, 8, 9}
+ ,{0,1,2,3,4,5,6,7,8,9,10}
+ ,{0,2,3,4,5,6,7,8,10}
+ ,{0,2,8,10}
+ ,{3,4,6,7}};
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">r</span>=0; r &lt; spaceInvaderRows.<span style="color: #228b22;">length</span>; r= r+1){
+    <span style="color: #228b22;">int</span>[] <span style="color: #a0522d;">row</span>= spaceInvaderRows[r];
+    <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">index</span>=0; index &lt; row.<span style="color: #228b22;">length</span>; index= index+1){
+        drawBlock(row[index], r, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline39">
+<h3 id="orgheadline39"><span class="section-number-3">10.5</span> Accès direct à un tableau de tableaux</h3>
+<p>
+En fait, on peut (évidemment !) utiliser (i.e. indexer) directement le
+tableau qui est dans une case d'un tableau :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">r</span>=0; r &lt; spaceInvaderRows.<span style="color: #228b22;">length</span>; r= r+1){
+    <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">index</span>=0; index &lt; row.<span style="color: #228b22;">length</span>; index= index+1){
+        drawBlock(spaceInvaderRows[r][index], r, <span style="color: #8b2252;">"green"</span>);
+    }
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline40">
+<h3 id="orgheadline40"><span class="section-number-3">10.6</span> Image du résultat</h3>
+
+<div class="figure">
+<p><img src="1-sprite.png" alt="1-sprite.png" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline43">
+<h2 id="orgheadline43"><span class="section-number-2">11</span> Généralisation</h2>
+<p>
+On a séparé la définition de l'image d'un alien (le <i>sprite</i>
+<code>spaceInvaderRows</code>) de son affichage. D'ailleurs on fera mieux de
+renommer <code>spaceInvaderRows</code> en <code>spaceInvaderSprite</code> car il vaut mieux
+nommer en fonction de ce que ça fait plutôt que ce que c'est. En
+effet, on pourrait changer la façon dont on représente le sprite
+(e.g. <i>bitmap</i>). Pour l'instant un sprite ne peut être que d'une seule
+couleur. 
+</p>
+
+<p>
+L'affichage est donc indépendant de l'image à représenter, on peut le
+réutiliser pour représenter le vaisseau du joueur, les missiles, etc.
+Chacun pourra avoir sa couleur propre.
+On voudra aussi bien évidemment pourvoir dessiner un sprite
+en n'importe quel point (pixellisé) de la fenêtre.
+</p>
+</section>
+<section id="slide-orgheadline42">
+<h3 id="orgheadline42"><span class="section-number-3">11.1</span> fonction</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawSprite</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">col</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">row</span>, <span style="color: #228b22;">int</span>[][] <span style="color: #a0522d;">sprite</span>, <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+  <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">r</span>=0; r &lt; sprite.<span style="color: #228b22;">length</span>; r= r+1){
+      <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">index</span>=0; index &lt; <span style="color: #228b22;">sprite</span>[r].length; index= index+1){
+          drawBlock(col+sprite[r][index], row+r, color);
+      }
+  }
+}
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline48">
+<h2 id="orgheadline48"><span class="section-number-2">12</span> Des vagues d'envahisseurs</h2>
+<p>
+Si l'on peut dessiner un pixel/bloc/sprite, on peut en dessiner autant
+qu'on veut :
+</p>
+<ul>
+<li>où on veut</li>
+<li>de la couleur qu'on veut</li>
+
+</ul>
+
+<p>
+Puisque que l'on a <i>implémenté</i> cela de façon générique/réutilisable.
+</p>
+</section>
+<section id="slide-orgheadline44">
+<h3 id="orgheadline44"><span class="section-number-3">12.1</span> une ligne d'envahisseurs</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">c</span>=0; c &lt; (nbPixelsWidth/BLOCK_SIZE)-(ALIEN_WIDTH+1); c= c + (ALIEN_WIDTH+1)){
+    drawSprite(c, 0, spaceInvaderSprite, <span style="color: #8b2252;">"green"</span>);
+}
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline45">
+<h3 id="orgheadline45"><span class="section-number-3">12.2</span> Image du résultat</h3>
+
+<div class="figure">
+<p><img src="1-line-sprites.png" alt="1-line-sprites.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline46">
+<h3 id="orgheadline46"><span class="section-number-3">12.3</span> une vague d'envahisseur</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">nbLines</span>= 4;
+<span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">line</span>=0; line &lt; <span style="color: #228b22;">nbLines</span>; line= line +1){
+  <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">c</span>=0; c &lt; (nbPixelsWidth/BLOCK_SIZE)-(ALIEN_WIDTH+1); c= c + (ALIEN_WIDTH+1)){
+      drawSprite(c, line*ALIEN_HEIGHT, spaceInvaderSprite, <span style="color: #8b2252;">"green"</span>);
+  }
+</pre>
+</div>
+</section>
+<section id="slide-orgheadline47">
+<h3 id="orgheadline47"><span class="section-number-3">12.4</span> Image du résultat</h3>
+
+<div class="figure">
+<p><img src="1-wave-sprites.png" alt="1-wave-sprites.png" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline49">
+<h2 id="orgheadline49"><span class="section-number-2">13</span> Récapitulatif</h2>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">SpaceInvaders</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">LearningGraphics</span> {
+    <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">String</span>[] <span style="color: #a0522d;">args</span>){
+        launch(args);
+    }
+    <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">final</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">int</span> <span style="color: #a0522d;">BLOCK_SIZE</span>= 8;
+    <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">final</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ALIEN_WIDTH</span>= 11;
+    <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">final</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ALIEN_HEIGHT</span>= 11;
+    <span style="color: #a020f0;">public</span>  <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawSquare</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">topLeftX</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">topLeftY</span>
+                            , <span style="color: #228b22;">int</span>  <span style="color: #a0522d;">width</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">height</span>
+                            , <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+        <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>= topLeftY; y &lt; <span style="color: #228b22;">topLeftY</span>+height; y= y+1){
+            <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>= topLeftX; x &lt; <span style="color: #228b22;">topLeftX</span>+width; x= x+1){
+                drawPixel(x, y, color);
+            }
+        }
+    }
+    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawBlock</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">col</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">row</span>, <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+        drawSquare(col*BLOCK_SIZE, row*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, color);
+    }
+    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">drawSprite</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">col</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">row</span>, <span style="color: #228b22;">int</span>[][] <span style="color: #a0522d;">sprite</span>, <span style="color: #228b22;">String</span> <span style="color: #a0522d;">color</span>){
+        <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">r</span>=0; r &lt; sprite.<span style="color: #228b22;">length</span>; r= r+1){
+            <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">index</span>=0; index &lt; <span style="color: #228b22;">sprite</span>[r].length; index= index+1){
+                drawBlock(col+sprite[r][index], row+r, color);
+            }
+        }
+    }
+</pre>
+</div>
+</section>
+<section>
+<div class="org-src-container">
+
+<pre  class="src src-java">    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">run</span>(){
+        <span style="color: #228b22;">int</span>[][] <span style="color: #a0522d;">spaceInvaderSprite</span>=
+            {{2,8}
+             ,{3,7}
+             ,{2,3,4,5,6,7,8}
+             ,{1, 2, 4, 5, 6, 8, 9}
+             ,{0,1,2,3,4,5,6,7,8,9,10}
+             ,{0,2,3,4,5,6,7,8,10}
+             ,{0,2,8,10}
+             ,{3,4,6,7}};
+        <span style="color: #228b22;">int</span> <span style="color: #a0522d;">nbLines</span>= 4;
+        <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">line</span>=0; line &lt; <span style="color: #228b22;">nbLines</span>; line= line +1){
+            <span style="color: #a020f0;">for</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">c</span>=0;
+                c &lt; (nbPixelsWidth/BLOCK_SIZE)
+                    -(ALIEN_WIDTH+1)
+                    ; c= c + (ALIEN_WIDTH+1)){
+                drawSprite(c, line*ALIEN_HEIGHT, spaceInvaderSprite, <span style="color: #8b2252;">"green"</span>);
+            }
+        }
+    }
+}
+</pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+margin: 0.10,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>
