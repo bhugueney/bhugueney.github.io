@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Computer Languages, Intro</title>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/2.5.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Computer Languages, Intro</h1><p class="date">Created: 2017-11-14 Tue 09:01</p>
+</section>
+
+<section>
+<section id="slide-org6064ef9">
+<h2 id="org6064ef9"><span class="section-number-2">1</span> Goals</h2>
+<ul>
+<li>Understanding :
+<ul>
+<li>the programming languages design space (tradeoffs)</li>
+<li>the programming paradigms</li>
+<li>how the programs are
+<ul>
+<li>interpreted</li>
+<li>compiled</li>
+
+</ul></li>
+
+</ul></li>
+<li>Being able to :
+<ul>
+<li>choose programming languages</li>
+<li>learn new programming languages</li>
+<li>apply various programming paradigms in various languages when it
+makes sense</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2ca0a8d">
+<h2 id="org2ca0a8d"><span class="section-number-2">2</span> Related</h2>
+<ul>
+<li>Advanced Algorithms
+<ul>
+<li>distributed : async</li>
+<li>genetic programming homoiconocity</li>
+<li>constraint programming</li>
+
+</ul></li>
+<li>ICPOO</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org3c99133">
+<h2 id="org3c99133"><span class="section-number-2">3</span> What is a programming language ?</h2>
+<ul>
+<li>What is a language ?</li>
+<li>What is programming ?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org36c9237">
+<h2 id="org36c9237"><span class="section-number-2">4</span> From CPU to human thought</h2>
+<ul>
+<li>What is a CPU (core) ?
+<ul>
+<li>Is it still the relevant computational unit ?</li>
+
+</ul></li>
+<li>What is human thought ?
+-<a href="https://en.wikipedia.org/wiki/Sapir_Whorf">Sapir-Whorf hypothesis</a></li>
+
+<li>instructions vs expressions</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc35e856">
+<h2 id="orgc35e856"><span class="section-number-2">5</span> The main trade off</h2>
+<p>
+performance vs. expressiveness
+programmer's time vs. CPU time
+</p>
+</section>
+<section id="slide-org450d088">
+<h3 id="org450d088"><span class="section-number-3">5.1</span> Performance ?</h3>
+<p>
+Benchmarks (e.g. <a href="http://shootout.alioth.debian.org/">http://shootout.alioth.debian.org/</a> )
+</p>
+
+<div class="figure">
+<p><img src="n-bodies-bench.png" alt="n-bodies-bench.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="n-bodies-bench-multicore.png" alt="n-bodies-bench-multicore.png" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="regex-dna-bench.png" alt="regex-dna-bench.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="all-bench.png" alt="all-bench.png" />
+</p>
+</div>
+</section>
+<section id="slide-org96b7fee">
+<h3 id="org96b7fee"><span class="section-number-3">5.2</span> Expressiveness: LOC</h3>
+<p>
+OCaml vs. Java
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Benchmark</td>
+<td class="org-left">Time</td>
+<td class="org-left">Memory</td>
+<td class="org-left">Code</td>
+</tr>
+
+<tr>
+<td class="org-left">regex-dna</td>
+<td class="org-left">1/2</td>
+<td class="org-left">2×</td>
+<td class="org-left">1/2</td>
+</tr>
+
+<tr>
+<td class="org-left">reverse-complement</td>
+<td class="org-left">±</td>
+<td class="org-left">1/4</td>
+<td class="org-left">3×</td>
+</tr>
+
+<tr>
+<td class="org-left">fannkuch-redux</td>
+<td class="org-left">±</td>
+<td class="org-left">1/24</td>
+<td class="org-left">1/3</td>
+</tr>
+
+<tr>
+<td class="org-left">spectral-norm</td>
+<td class="org-left">±</td>
+<td class="org-left">1/9</td>
+<td class="org-left">1/3</td>
+</tr>
+
+<tr>
+<td class="org-left">n-body</td>
+<td class="org-left">2×</td>
+<td class="org-left">1/24</td>
+<td class="org-left">±</td>
+</tr>
+
+<tr>
+<td class="org-left">pidigits</td>
+<td class="org-left">2×</td>
+<td class="org-left">1/9</td>
+<td class="org-left">2×</td>
+</tr>
+
+<tr>
+<td class="org-left">binary-trees</td>
+<td class="org-left">2×</td>
+<td class="org-left">1/5</td>
+<td class="org-left">±</td>
+</tr>
+
+<tr>
+<td class="org-left">fasta</td>
+<td class="org-left">2×</td>
+<td class="org-left">1/9</td>
+<td class="org-left">±</td>
+</tr>
+
+<tr>
+<td class="org-left">mandelbrot</td>
+<td class="org-left">3×</td>
+<td class="org-left">1/17</td>
+<td class="org-left">±</td>
+</tr>
+
+<tr>
+<td class="org-left">k-nucleotide</td>
+<td class="org-left">4×</td>
+<td class="org-left">±</td>
+<td class="org-left">1/6</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section id="slide-org803f8eb">
+<h3 id="org803f8eb"><span class="section-number-3">5.3</span> Expressiveness: example</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">boolean</span> <span style="color: #bc6ec5; font-weight: bold;">isBlank</span><span style="color: #4f97d7;">(</span>String <span style="color: #ce537a; font-weight: bold;">JavaDoc</span> <span style="color: #7590db;">str</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">strLen</span>;
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>str == <span style="color: #a45bad;">null</span> || <span style="color: #2d9574;">(</span>strLen = str.length<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span> == <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span> = <span style="color: #a45bad;">0</span>; i &lt; <span style="color: #ce537a; font-weight: bold;">strLen</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+        <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span><span style="color: #67b11d;">(</span>Character.isWhitespace<span style="color: #b1951d;">(</span>str.charAt<span style="color: #4f97d7;">(</span>i<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>
+             == <span style="color: #a45bad;">false</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">false</span>;
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+<p>
+<a href="http://dl.dropbox.com/u/6806810/The_Curious_Clojureist(Neal_Ford).pdf">vs.</a>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">blank?</span> <span style="color: #bc6ec5;">[</span>s<span style="color: #bc6ec5;">]</span>  <span style="color: #bc6ec5;">(</span>every? #<span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">Character</span><span style="color: #b2b2b2; background-color: #292b2e;">/</span><span style="color: #bc6ec5;">isWhitespace</span> <span style="color: #7590db;">%</span><span style="color: #2d9574;">)</span> s<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-org67c8605">
+<h2 id="org67c8605"><span class="section-number-2">6</span> Safety vs power</h2>
+<p>
+Programming languages are defined by what that enable <b>and</b> by what they prevent.
+</p>
+
+<p>
+<object type="image/svg+xml" data="Venn-useful-harmful.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+Dangerous is often interesting : tradeoffs wrt safety.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orge57e6f0">
+<h2 id="orge57e6f0"><span class="section-number-2">7</span> Abstractions</h2>
+<p>
+«Being abstract is something profoundly different from being vague … The
+purpose of abstraction is not to be vague, but to create a new semantic
+level in which one can be absolutely precise.» Edsger W. Dijkstra
+</p>
+</section>
+<section id="slide-org868372b">
+<h3 id="org868372b"><span class="section-number-3">7.1</span> Abstraction power and cost: example</h3>
+<p>
+Multicore programming:
+</p>
+<ul>
+<li>Automatic parallelisation</li>
+<li>Manual parallelisation wrt number of threads</li>
+<li>Manual threads pinning on core wrt cache sharing</li>
+
+</ul>
+
+<p>
+Cf. also automatic (or not) vectorisation with SIMD instructions.
+</p>
+</section>
+<section id="slide-orgbd268c7">
+<h3 id="orgbd268c7"><span class="section-number-3">7.2</span> Abstraction can (also) bring more efficient programs</h3>
+<p>
+Give more leeway to the compiler / interpreter to optimize.
+</p>
+
+</section>
+<section id="slide-orgadf9a75">
+<h3 id="orgadf9a75"><span class="section-number-3">7.3</span> Restrictions can bring more efficient programs</h3>
+<p>
+The less one can do, the easier for the compiler to optimize.
+</p>
+
+<p>
+Pointers (references) aliasing.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orga844348">
+<h2 id="orga844348"><span class="section-number-2">8</span> Domain Specific Languages</h2>
+<ul>
+<li>external (lex &amp; yacc)</li>
+<li><a href="https://www.nofluffjuststuff.com/conference/dallas/2011/05/session?id=21351">internal</a></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org2fb91a4">
+<h2 id="org2fb91a4"><span class="section-number-2">9</span> Scripting languages</h2>
+<p>
+shells are domain specific languages:
+</p>
+<ul>
+<li>files</li>
+<li>(streams of) line-oriented text processing</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org1abecd7">
+<h2 id="org1abecd7"><span class="section-number-2">10</span> The power of a DSL: shell example</h2>
+<p>
+The McIlroy vs. Knuth legend:
+</p>
+<blockquote nil>
+<p>
+Read a file of text, determine the n most frequently used words, and print out a sorted list of those words along with their frequencies.
+</p>
+</blockquote>
+<p>
+Live Coding !
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org8241389">
+<h2 id="org8241389"><span class="section-number-2">11</span> The power of a DSL: shell example</h2>
+<p>
+The McIlroy vs. Knuth legend:
+</p>
+<blockquote nil>
+<p>
+Read a file of text, determine the n most frequently used words, and print out a sorted list of those words along with their frequencies.
+</p>
+</blockquote>
+</section>
+<section id="slide-org1f270c7">
+<h3 id="org1f270c7"><span class="section-number-3">11.1</span> Knuth&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span></h3>
+<p>
+D. Knuth
+</p>
+<blockquote nil>
+<p>
+&#x2026; 10+ pages of (great) Pascal &#x2026;
+</p>
+</blockquote>
+</section>
+<section id="slide-orgefda3a9">
+<h3 id="orgefda3a9"><span class="section-number-3">11.2</span> McIlroy&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span></h3>
+<p>
+McIlroy
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-sh">tr -cs A-Za-z <span style="color: #2d9574;">'\n'</span> |
+tr A-Z a-z |
+sort |
+uniq -c |
+sort -rn |
+sed $<span style="color: #4f97d7;">{</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">}</span>q
+</pre>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org365995c">
+<h2 id="org365995c"><span class="section-number-2">12</span> Design Patterns, Programming Paradigms</h2>
+<ul>
+<li>The curse of complexity, the quest for abstraction
+<ul>
+<li>variables : type !</li>
+<li>funtions / subroutines : stack, scopes, argument passing</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3cead57">
+<h2 id="org3cead57"><span class="section-number-2">13</span> Function / subroutines</h2>
+<ul>
+<li>coroutines</li>
+<li>concatenative (stack based) languages</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org946ad9a">
+<h2 id="org946ad9a"><span class="section-number-2">14</span> static / stack / Dynamic allocation</h2>
+<ul>
+<li>garbage collector</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org907202c">
+<h2 id="org907202c"><span class="section-number-2">15</span> Mutable / Immutable</h2>
+<div class="outline-text-2" id="text-15">
+</div></section>
+<section id="slide-org7f3b3b8">
+<h3 id="org7f3b3b8"><span class="section-number-3">15.1</span> Mutability</h3>
+<p>
+<a href="http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey">(mutable) Object : State = Value + Time</a>
+</p>
+
+<ul>
+<li>Hidden dependencies (side effects)</li>
+<li>Concurrency issues</li>
+
+</ul>
+</section>
+<section id="slide-orgde62fc4">
+<h3 id="orgde62fc4"><span class="section-number-3">15.2</span> Languages without mutability ?</h3>
+<p>
+Value Oriented Programming (<i>functional</i> programming).
+Applying functions as in mathematics.
+</p>
+
+<dl>
+<dt>Imperative programming</dt><dd><a href="http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html">kingdom of Nouns</a></dd>
+<dt>Functional programming</dt><dd>kingdom of Verbs</dd>
+
+</dl>
+
+<p>
+Iterations &rarr; Recursion.
+</p>
+
+<p>
+Side effects needed for any useful program !
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org821e10d">
+<h2 id="org821e10d"><span class="section-number-2">16</span> static / dynamic Typing</h2>
+<ul>
+<li>Dynamic typing:
+<ul>
+<li>(un)boxing of primitive type</li>
+<li>great reusability</li>
+
+</ul></li>
+<li>Static typing:
+<ul>
+<li>whole program optimization</li>
+<li>static polymorphism</li>
+<li>compilation errors (good<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> !)</li>
+
+</ul></li>
+
+<li>static properties (not only types)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org252e061">
+<h2 id="org252e061"><span class="section-number-2">17</span> Interpreter / compiler</h2>
+<ul>
+<li>JIT</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org01b577a">
+<h2 id="org01b577a"><span class="section-number-2">18</span> Syntax</h2>
+<div class="outline-text-2" id="text-18">
+</div></section>
+<section id="slide-orgc8a9767">
+<h3 id="orgc8a9767"><span class="section-number-3">18.1</span> Syntax ?</h3>
+<dl>
+<dt>C</dt><dd>C, C++, Java,&#x2026;</dd>
+<dt>LISP</dt><dd>cf. Abstract Syntax Tree : <b>homoiconicity</b>
+<ul>
+<li>a function call is a list</li>
+<li>a function definition is a list</li>
+
+</ul></dd>
+
+</dl>
+
+<div class="figure">
+<p><img src="lisp-angry-meme.png" alt="lisp-angry-meme.png" />
+</p>
+</div>
+<dl>
+<dt>others</dt><dd>Ruby, PERL, Python, Withespace,&hellip;</dd>
+
+</dl>
+
+</section>
+<section id="slide-orgdcab622">
+<h3 id="orgdcab622"><span class="section-number-3">18.2</span> Syntax: fixed vs. customizable</h3>
+<p>
+(real) macros ?
+</p>
+<ul>
+<li>Homoiconicity &rarr; macros (<b>Read</b>, Eval, Print Loop)</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgd231c26">
+<h2 id="orgd231c26"><span class="section-number-2">19</span> Functional programming</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org3704115">
+<h2 id="org3704115"><span class="section-number-2">20</span> Object Oriented programming</h2>
+<ul>
+<li>(single) dynamic dispatching : Abstract Data Types (&rarr; code reuse)</li>
+<li>encapsulation</li>
+<li>data hiding</li>
+
+</ul>
+
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-org4847958">
+<h2 id="org4847958"><span class="section-number-2">21</span> Error Code / Exceptions</h2>
+<p>
+Stopping execution as soon as it stops making sense and going back (up the call
+stack) to where the error can be handled.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org98fea9d">
+<h2 id="org98fea9d"><span class="section-number-2">22</span> Single thread / Concurrency memory model</h2>
+<ul>
+<li>Atomicity</li>
+<li>Locks</li>
+<li>Thread Local storage</li>
+<li>Immutability</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org0e60c1d">
+<h2 id="org0e60c1d"><span class="section-number-2">23</span> Callbacks</h2>
+<ul>
+<li>Communicating Sequential Processes</li>
+
+</ul>
+<p>
+<a href="https://swannodette.github.io/2013/07/12/communicating-sequential-processes">https://swannodette.github.io/2013/07/12/communicating-sequential-processes</a>
+Cf. error handling wrt call stack !
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org8848c54">
+<h2 id="org8848c54"><span class="section-number-2">24</span> Pattern matching</h2>
+<p>
+Dynamic dispatching but on values, not type.
+<a href="https://github.com/clojure-cookbook/clojure-cookbook/blob/master/02_composite-data/2-27_and_2-28_custom-data-structures/2-27_red-black-trees-part-i.asciidoc">Rebalancing a Red-Black tree :</a>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">balance</span>
+  <span style="color: #2aa1ae;">"Ensures the given subtree stays balanced by rearranging black nodes</span>
+<span style="color: #2aa1ae;">  that have at least one red child and one red grandchild"</span>
+  <span style="color: #bc6ec5;">[</span>tree<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span>match <span style="color: #2d9574;">[</span>tree<span style="color: #2d9574;">]</span>
+         <span style="color: #2d9574;">[</span><span style="color: #67b11d;">(</span><span style="color: #a45bad;">:or</span> <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">Left child red with left red grandchild</span>
+               <span style="color: #b1951d;">[</span><span style="color: #a45bad;">:black</span> <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">:red</span> <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">:red</span> a x b<span style="color: #bc6ec5;">]</span> y c<span style="color: #4f97d7;">]</span> z d<span style="color: #b1951d;">]</span>
+               <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">Left child red with right red grandchild</span>
+               <span style="color: #b1951d;">[</span><span style="color: #a45bad;">:black</span> <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">:red</span> a x <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">:red</span> b y c<span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">]</span> z d<span style="color: #b1951d;">]</span>
+               <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">Right child red with left red grandchild</span>
+               <span style="color: #b1951d;">[</span><span style="color: #a45bad;">:black</span> a x <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">:red</span> <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">:red</span> b y c<span style="color: #bc6ec5;">]</span> z d<span style="color: #4f97d7;">]</span><span style="color: #b1951d;">]</span>
+               <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">Right child red with right red grandchild</span>
+               <span style="color: #b1951d;">[</span><span style="color: #a45bad;">:black</span> a x <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">:red</span> b y <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">:red</span> c z d<span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">]</span><span style="color: #b1951d;">]</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span> <span style="color: #2d9574;">[</span><span style="color: #a45bad;">:red</span> <span style="color: #67b11d;">[</span><span style="color: #a45bad;">:black</span> a x b<span style="color: #67b11d;">]</span>
+                                                            y
+                                                            <span style="color: #67b11d;">[</span><span style="color: #a45bad;">:black</span> c z d<span style="color: #67b11d;">]</span><span style="color: #2d9574;">]</span>
+               <span style="color: #a45bad;">:else</span> tree<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org7b79815">
+<h2 id="org7b79815"><span class="section-number-2">25</span> Grammar Matching</h2>
+<p>
+Meta language to program by implementing <a href="https://github.com/cgrand/seqexp">custom DSL over data</a>.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">se</span><span style="color: #b2b2b2; background-color: #292b2e;">/</span>exec
+     <span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">se</span><span style="color: #b2b2b2; background-color: #292b2e;">/</span>cat <span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">se</span><span style="color: #b2b2b2; background-color: #292b2e;">/</span>* odd?<span style="color: #2d9574;">)</span> <span style="color: #a45bad;">7</span><span style="color: #bc6ec5;">)</span>
+     <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span> <span style="color: #a45bad;">3</span> <span style="color: #a45bad;">3</span> <span style="color: #a45bad;">7</span> <span style="color: #a45bad;">7</span> <span style="color: #a45bad;">9</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+<pre class="example">
+{:rest (9), :match (1 3 3 7 7)}
+</pre>
+</section>
+</section>
+<section>
+<section id="slide-org5ba7fbf">
+<h2 id="org5ba7fbf"><span class="section-number-2">26</span> Constraints Solving</h2>
+<div class="outline-text-2" id="text-26">
+</div></section>
+<section id="slide-orgfde171e">
+<h3 id="orgfde171e"><span class="section-number-3">26.1</span> Languages without sequential execution ?</h3>
+<dl>
+<dt>Rule-based (logic) programming</dt><dd>describing the goal rather than the algorithm.</dd>
+
+<dt>Most famous logic programming</dt><dd>Prolog</dd>
+<dt>Most used declarative language</dt><dd>SQL</dd>
+
+</dl>
+</section>
+<section id="slide-orga27e731">
+<h3 id="orga27e731"><span class="section-number-3">26.2</span> logic code example: Sudoku solver 1/2</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">get-square</span> <span style="color: #bc6ec5;">[</span>rows x y<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">[</span>x <span style="color: #67b11d;">(</span>range x <span style="color: #b1951d;">(</span>+ x <span style="color: #a45bad;">3</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span>
+        y <span style="color: #67b11d;">(</span>range y <span style="color: #b1951d;">(</span>+ y <span style="color: #a45bad;">3</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span>
+    <span style="color: #2d9574;">(</span>get-in rows <span style="color: #67b11d;">[</span>x y<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">init</span> <span style="color: #bc6ec5;">[</span>vars hints<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>seq vars<span style="color: #2d9574;">)</span>
+    <span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #67b11d;">[</span>hint <span style="color: #b1951d;">(</span>first hints<span style="color: #b1951d;">)</span><span style="color: #67b11d;">]</span>
+      <span style="color: #67b11d;">(</span>all
+        <span style="color: #b1951d;">(</span><span style="color: #4f97d7; font-weight: bold;">if-not</span> <span style="color: #4f97d7;">(</span>zero? hint<span style="color: #4f97d7;">)</span>
+          <span style="color: #4f97d7;">(</span>== <span style="color: #bc6ec5;">(</span>first vars<span style="color: #bc6ec5;">)</span> hint<span style="color: #4f97d7;">)</span>
+          succeed<span style="color: #b1951d;">)</span>
+        <span style="color: #b1951d;">(</span>init <span style="color: #4f97d7;">(</span>next vars<span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">(</span>next hints<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+    succeed<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgdbf4501">
+<h3 id="orgdbf4501"><span class="section-number-3">26.3</span> logic code example: Sudoku solver 2/2</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">sudokufd</span> <span style="color: #bc6ec5;">[</span>hints<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #2d9574;">[</span>vars <span style="color: #67b11d;">(</span>repeatedly <span style="color: #a45bad;">81</span> lvar<span style="color: #67b11d;">)</span>
+        rows <span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">-&gt;&gt;</span> vars <span style="color: #b1951d;">(</span>partition <span style="color: #a45bad;">9</span><span style="color: #b1951d;">)</span> <span style="color: #b1951d;">(</span>map vec<span style="color: #b1951d;">)</span> <span style="color: #b1951d;">(</span>into <span style="color: #4f97d7;">[]</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span>
+        cols <span style="color: #67b11d;">(</span>apply map vector rows<span style="color: #67b11d;">)</span>
+        sqs <span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #b1951d;">[</span>x <span style="color: #4f97d7;">(</span>range <span style="color: #a45bad;">0</span> <span style="color: #a45bad;">9</span> <span style="color: #a45bad;">3</span><span style="color: #4f97d7;">)</span>
+                   y <span style="color: #4f97d7;">(</span>range <span style="color: #a45bad;">0</span> <span style="color: #a45bad;">9</span> <span style="color: #a45bad;">3</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">]</span>
+               <span style="color: #b1951d;">(</span>get-square rows x y<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span>
+    <span style="color: #2d9574;">(</span>run <span style="color: #a45bad;">1</span> <span style="color: #67b11d;">[</span>q<span style="color: #67b11d;">]</span>
+      <span style="color: #67b11d;">(</span>== q vars<span style="color: #67b11d;">)</span>
+      <span style="color: #67b11d;">(</span>everyg #<span style="color: #b1951d;">(</span>infd <span style="color: #7590db;">%</span> <span style="color: #4f97d7;">(</span>domain <span style="color: #a45bad;">1</span> <span style="color: #a45bad;">2</span> <span style="color: #a45bad;">3</span> <span style="color: #a45bad;">4</span> <span style="color: #a45bad;">5</span> <span style="color: #a45bad;">6</span> <span style="color: #a45bad;">7</span> <span style="color: #a45bad;">8</span> <span style="color: #a45bad;">9</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span> vars<span style="color: #67b11d;">)</span>
+      <span style="color: #67b11d;">(</span>init vars hints<span style="color: #67b11d;">)</span>
+      <span style="color: #67b11d;">(</span>everyg distinctfd rows<span style="color: #67b11d;">)</span>
+      <span style="color: #67b11d;">(</span>everyg distinctfd cols<span style="color: #67b11d;">)</span>
+      <span style="color: #67b11d;">(</span>everyg distinctfd sqs<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org144bc05">
+<h2 id="org144bc05"><span class="section-number-2">27</span> Probabilistic Programming</h2>
+<p>
+Computing on probabilistic distributions instead of just plain numbers.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defdist</span> <span style="color: #bc6ec5; font-weight: bold;">dirac</span>
+  <span style="color: #2d9574;">"Dirac distribution"</span>
+  <span style="color: #bc6ec5;">[</span>x<span style="color: #bc6ec5;">]</span>  <span style="color: #2aa1ae; background-color: #292e34;">; distribution parameters</span>
+  <span style="color: #bc6ec5;">[]</span>   <span style="color: #2aa1ae; background-color: #292e34;">; auxiliary bindings</span>
+  <span style="color: #bc6ec5;">(</span>sample* <span style="color: #2d9574;">[</span>this<span style="color: #2d9574;">]</span> x<span style="color: #bc6ec5;">)</span>
+  <span style="color: #bc6ec5;">(</span>observe* <span style="color: #2d9574;">[</span>this value<span style="color: #2d9574;">]</span> <span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>= x value<span style="color: #67b11d;">)</span> <span style="color: #a45bad;">0.0</span> <span style="color: #67b11d;">(</span>- <span style="color: #b1951d;">(</span>/ <span style="color: #a45bad;">1.0</span> <span style="color: #a45bad;">0.0</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org0877239">
+<h2 id="org0877239"><span class="section-number-2">28</span> New languages ?</h2>
+<ul>
+<li>userbase ?</li>
+<li>libraries ?</li>
+
+</ul>
+
+<p>
+Chicken and egg problem.
+</p>
+
+</section>
+<section id="slide-orgce31199">
+<h3 id="orgce31199"><span class="section-number-3">28.1</span> Targeting  a plateform rather than an architecture (CPU &amp; OS)</h3>
+<p>
+Piggybacking an existing plateform:
+</p>
+<dl>
+<dt>Deployment</dt><dd>download and run</dd>
+<dt>Libraries</dt><dd>"life is too short to write yet another XML parser."</dd>
+<dt>JIT</dt><dd>Thousands<sup>citation needed</sup> of man years in Sun JVM</dd>
+
+</dl>
+
+<p>
+&rarr; new (or not !) languages target the JVM.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd7e42b1">
+<h2 id="orgd7e42b1"><span class="section-number-2">29</span> Case Studies</h2>
+<div class="outline-text-2" id="text-29">
+</div></section>
+<section id="slide-org05efb03">
+<h3 id="org05efb03"><span class="section-number-3">29.1</span> PhD on time series data-mining</h3>
+<p>
+C++ vs. Java
+</p>
+<ul>
+<li>single core</li>
+<li>multicore</li>
+<li>distributed</li>
+
+</ul>
+</section>
+<section id="slide-org262ec52">
+<h3 id="org262ec52"><span class="section-number-3">29.2</span> Scilab</h3>
+<p>
+Legacy !
+</p>
+<ul>
+<li>Fortran</li>
+<li>Fortran, C</li>
+<li>Fortran, C, C++</li>
+<li>Fortran, C, C++, Java</li>
+
+</ul>
+
+</section>
+<section id="slide-org0ca1da0">
+<h3 id="org0ca1da0"><span class="section-number-3">29.3</span> Twenga</h3>
+<dl>
+<dt>server</dt><dd>C++</dd>
+<dt>client</dt><dd>PHP, javascript</dd>
+<dt>devop</dt><dd>python, bash</dd>
+
+</dl>
+
+</section>
+<section id="slide-org60ab689">
+<h3 id="org60ab689"><span class="section-number-3">29.4</span> XXX</h3>
+<dl>
+<dt>server</dt><dd>C++, moving to java</dd>
+
+</dl>
+<p>
+scaling beyond single server
+distributed (e.g. cloud) computing
+</p>
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-orga4ec2ad">
+<h2 id="orga4ec2ad"><span class="section-number-2">30</span> A new language</h2>
+<ul>
+<li>Interactive (REPL)</li>
+<li>functional, strongly immutable</li>
+<li>(single/multiple) dispatching</li>
+<li>Homoiconic</li>
+<li>Concurrency aware</li>
+<li>Piggibacking a mature, feature-rich &amp; efficient ecosystem : JVM</li>
+
+</ul>
+
+
+<p>
+Will also speak about / use Java and Javascript (and ClojureScript).
+</p>
+</section>
+<section id="slide-org2f236ad">
+<h3 id="org2f236ad"><span class="section-number-3">30.1</span> Clojurescript</h3>
+<pre><code class="language-klipse">(map #(/ (+ %1 %2) 2) [1 2 3] [2 4 6])</code></pre>
+</section>
+</section>
+</div>
+</div>
+<link rel="stylesheet" type="text/css" href="http://app.klipse.tech/css/codemirror.css"> <script> window.klipse_settings = {codemirror_options_in: {lineWrapping: true, autoCloseBrackets: true, showCursorWhenSelecting: true}, codemirror_options_out: {lineWrapping: true}, selector: '.language-klipse', selector_eval_js: '.language-klipse-eval-js', selector_eval_php: '.language-klipse-eval-php', selector_eval_ruby: '.language-klipse-eval-ruby', selector_js: '.language-klipse-js'}; </script> <script src="http://app.klipse.tech/plugin/js/klipse_plugin.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
