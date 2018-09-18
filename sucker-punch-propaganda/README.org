@@ -1,0 +1,159 @@
+#+TITLE: Why Clojure ?
+#+AUTHOR:
+#+OPTIONS: toc:nil
+#+EMAIL: bernard.hugueney@isep.fr
+#+REVEAL_ROOT:  http://cdn.jsdelivr.net/reveal.js/2.5.0/
+
+# /home/bernard/Documents/Workspace/reveal.js
+
+
+
+
+* Sapir Whorf hypothesis
+(Yet) Another language ?
+ - some languages make better programs
+ - some also make better programmers !
+* Low barrier to productivity …
+thx to perfect Java interoperability !
+ - Can use/create any java object
+ - Same primitive types (incl. java.lang.String)
+Solves the chicken-egg problem (libraries, users base) that have been
+keeping us with C for decades despite all the good work in academia.
+* A Simple Language
+ - Simple :: ≠ easy
+ - Fighting incidental complexity :: There is no pride to have in
+      mastering needlessly complex tools (java programmers understand
+      this very well when talking about C++ ☺).
+
+* Object Oriented ‽
+ - type
+ - identity
+ - state
+   - attribute names → values
+   - mutability
+ - (single) dynamic dispatching
+ - namespace
+Clojure has it *all*, /à la carte/.
+
+Toolbox > swiss army knife
+* Sane defaults
+ - immutability : Value Oriented Programming (transients available but
+   the persistent data structures are extremely efficient)
+ - dynamic typing (type annotations also available)
+ - lexical binding (dynamic binding also available)
+ - static dispatching (dynamic dispatching available, single or
+   multiple)
+ - open structures as maps of interned strings (closed struct available)
+* Practical SMP primitives
+ - vars :: thread local writes
+ - agents :: queued asynch writes
+ - inter-threads synch :: atomic writes
+   - on single /atoms/
+   - transactions on multiple /refs/
+* Very Simple Syntax ☺
+"Oh, btw, it's a LISP"
+[[file:lisp-angry-meme.png]]
+* Don't panic !
+Not necessarily /easy/ at first but :
+ - syntactic grouping of pairs without ()
+ - code is data (list), but most data structures are not lists :
+   - [vector]
+   - {map}
+   - #{set}
+ - IDE (e.g. emacs) to the rescue !
+   - help writing (electric parenthesis)
+   - help reading (rainbow parenthesis)
+   - e.g. ≠ i.e. ☺
+* M-x emacs-ftw
+[[file:clojure-in-emacs.png]]
+* Eclipse plug-in
+[[file:sc-ccw.png]]
+* LightTable
+[[file:LightTable.png]]
+* Metaprogramming done right
+ - David Wheeler :: "All problems in computer science can be solved by
+                    another level of indirection".
+ - Myself :: "Any boring (part of a) task can and should be automated away"
+ - Myself again :: "Programming should be fun !"
+
+Hence you should be able to automate boring parts of programming !
+To make it /easy/, you *need* the /simple/ syntax of code as data structure.
+(disclosure: I'm a [[http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/index.html][Boost::mpl]] user !)
+[ [[http://blog.fogus.me/2011/11/15/the-macronomicon-slides/][Macronomicon by M.Fogus]]]
+
+* Growing a language
+Macros not only for syntactic sugar :
+- [[https://github.com/clojure/core.match/wiki/Overview][Pattern matching]]
+- [[http://www.slideshare.net/normanrichards/corelogic-introduction][Logic programming]]
+- static typing http://logaan.github.io/clojure/core.typed/2013/10/02/core.typed-game-of-life.html
+- \dots
+
+* Conclusion
+Perfect Plateform for :
+ - Pompous Purists :: you can add your monads with macros !
+ - Productivity Pirates™ :: you can reuse all the java libs/frameworks !
+ - Painful PHBs :: it's all jars to you, JarJar !
+
+Not all side effects are evil : by learning this language, you'll also
+learn concepts form the great minds behind it. You will also get a
+better understanding of concepts you already (think you) know
+(e.g. OOP, state, time, value, hammocks…).
+
+* TL;DR
+ - Don't fear/dismiss the unknown
+ - Learn things and have fun ! (I know you will ☺)
+
+"+others will never resolve on passing higher order functions in
+forests of parenthesis+" ☹
+
+
+I avoided LISP for 10 years :
+"I was blind, now I can see.
+Rich made a believer out of me !" ☺
+* BTW, it now runs on the client
+ClojureScript [[http://cljsfiddle.net/][compiles as efficient Javascript]], [[http://swannodette.github.io/2013/11/07/clojurescript-101/][with SourceMap]] .
+
+* [Web|Bib]liography
+
+ - Talks (slides / videos)
+   - Are We There Yet ? *← Must See !*  [[http://www.wiki.jvmlangsummit.com/images/a/ab/HickeyJVMSummit2009.pdf][slides]] / [[http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey][video]]
+   - [[https://blip.tv/clojure/hammock-driven-development-4475586][Hammock Driven Development]]
+   - [[http://www.infoq.com/presentations/Simple-Made-Easy][Simple Made Easy]]
+   - [[http://vimeo.com/68334908][ClojureScript: Lisp's Revenge]]
+ - Books
+   - [[http://joyofclojure.com/][The Joy of Clojure]]
+   - [[http://www.manning.com/rathore/][Clojure in Action]]
+   - [[http://www.clojurebook.com/][Clojure Programming]]
+ - Quick refs
+   - [[http://www.cis.upenn.edu/~matuszek/Concise%2520Guides/Concise%2520Clojure.html][Concise Clojure]]
+   - http://jafingerhut.github.io/cheatsheet-clj-1.3/cheatsheet-tiptip-cdocs-summary.html
+
+cheat sheets
+* Bonus track : snippets
+#+begin_src clojure export: code
+(def fizzbuzz
+"lazy seq of fizzbuzz"
+  (lazy-seq (map #(let [s (str (if (= 0 (rem % 3)) "Fizz")
+                               (if (= 0 (rem % 5)) "Buzz"))]
+                    (if (empty? s) % s))
+                 (iterate inc 1))))
+#+end_src
+ - user> (take 16 fizzbuzz) :: (1 2 "Fizz" 4 "Buzz" "Fizz" 7 8 "Fizz"
+      "Buzz" 11 "Fizz" 13 14 "FizzBuzz" 16)
+#+begin_src clojure export: code
+(def fib-seq
+  "lazy seq of Fibonacci numbers"
+  (lazy-cat [0 1] (map + (rest fib-seq) fib-seq)))
+#+end_src
+ - user> (take 16 fib-seq) :: (0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610)
+
+* TODO Hands-on !
+ - [[http://tryclj.com/][try clojure !]]
+ - [[https://gist.github.com/1951396][code snippets]]
+   - [[http://www.cljbin.com/paste/4f564497e4b00708a069359e][fibonacci seq 1]]
+   - [[http://www.cljbin.com/paste/4f5644e4e4b00708a069359f][fibonacci seq 2]]
+   - [[http://www.cljbin.com/paste/4f564571e4b00708a06935a0][fizzbuzz]]
+   - [[http://www.cljbin.com/paste/4f564644e4b00708a06935a1][fizzbuzzzapp]]
+   - [[http://www.cljbin.com/paste/4f564754e4b00708a06935a3][menu]]
+
+Remember : a proper IDE will help *a lot* you with the () !

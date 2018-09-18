@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(Why Clojure ?)</title>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/reveal.min.css"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/theme/default.css" id="theme"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Why Clojure ?</h1>
+<h2></h2>
+<h2><a href="mailto:bernard.hugueney@isep.fr">bernard.hugueney@isep.fr</a></h2>
+<h2></h2></section>
+
+
+
+
+<section>
+<section id="sec-1" >
+
+<h2><span class="section-number-2">1</span> Sapir Whorf hypothesis</h2>
+<p>
+(Yet) Another language ?
+</p>
+<ul class="org-ul">
+<li>some languages make better programs
+</li>
+<li>some also make better programmers !
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> Low barrier to productivity …</h2>
+<p>
+thx to perfect Java interoperability !
+</p>
+<ul class="org-ul">
+<li>Can use/create any java object
+</li>
+<li>Same primitive types (incl. java.lang.String)
+</li>
+</ul>
+<p>
+Solves the chicken-egg problem (libraries, users base) that have been
+keeping us with C for decades despite all the good work in academia.
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> A Simple Language</h2>
+<dl class="org-dl">
+<dt><b>Simple</b></dt><dd>≠ easy
+</dd>
+<dt><b>Fighting incidental complexity</b></dt><dd>There is no pride to have in
+mastering needlessly complex tools (java programmers understand
+this very well when talking about C++ ☺).
+</dd>
+</dl>
+</section>
+</section>
+<section>
+<section id="sec-4" >
+
+<h2><span class="section-number-2">4</span> Object Oriented ‽</h2>
+<ul class="org-ul">
+<li>type
+</li>
+<li>identity
+</li>
+<li>state
+<ul class="org-ul">
+<li>attribute names → values
+</li>
+<li>mutability
+</li>
+</ul>
+</li>
+<li>(single) dynamic dispatching
+</li>
+<li>namespace
+</li>
+</ul>
+<p>
+Clojure has it <b>all</b>, <i>à la carte</i>.
+</p>
+
+<p>
+Toolbox &gt; swiss army knife
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-5" >
+
+<h2><span class="section-number-2">5</span> Sane defaults</h2>
+<ul class="org-ul">
+<li>immutability : Value Oriented Programming (transients available but
+the persistent data structures are extremely efficient)
+</li>
+<li>dynamic typing (type annotations also available)
+</li>
+<li>lexical binding (dynamic binding also available)
+</li>
+<li>static dispatching (dynamic dispatching available, single or
+multiple)
+</li>
+<li>open structures as maps of interned strings (closed struct available)
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-6" >
+
+<h2><span class="section-number-2">6</span> Practical SMP primitives</h2>
+<dl class="org-dl">
+<dt><b>vars</b></dt><dd>thread local writes
+</dd>
+<dt><b>agents</b></dt><dd>queued asynch writes
+</dd>
+<dt><b>inter-threads synch</b></dt><dd>atomic writes
+<ul class="org-ul">
+<li>on single <i>atoms</i>
+</li>
+<li>transactions on multiple <i>refs</i>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+
+</section>
+<section>
+<section id="sec-7" >
+
+<h2><span class="section-number-2">7</span> Very Simple Syntax ☺</h2>
+<p>
+"Oh, btw, it's a LISP"
+<img src="lisp-angry-meme.png"  alt="lisp-angry-meme.png"/>
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-8" >
+
+<h2><span class="section-number-2">8</span> Don't panic !</h2>
+<p>
+Not necessarily <i>easy</i> at first but :
+</p>
+<ul class="org-ul">
+<li>syntactic grouping of pairs without ()
+</li>
+<li>code is data (list), but most data structures are not lists :
+<ul class="org-ul">
+<li>[vector]
+</li>
+<li>{map}
+</li>
+<li>#{set}
+</li>
+</ul>
+</li>
+<li>IDE (e.g. emacs) to the rescue !
+<ul class="org-ul">
+<li>help writing (electric parenthesis)
+</li>
+<li>help reading (rainbow parenthesis)
+</li>
+<li>e.g. ≠ i.e. ☺
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-9" >
+
+<h2><span class="section-number-2">9</span> M-x emacs-ftw</h2>
+
+<div class="figure">
+<p><img src="clojure-in-emacs.png"  alt="clojure-in-emacs.png"/></p>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-10" >
+
+<h2><span class="section-number-2">10</span> Eclipse plug-in</h2>
+
+<div class="figure">
+<p><img src="sc-ccw.png"  alt="sc-ccw.png"/></p>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-11" >
+
+<h2><span class="section-number-2">11</span> LightTable</h2>
+
+<div class="figure">
+<p><img src="LightTable.png"  alt="LightTable.png"/></p>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-12" >
+
+<h2><span class="section-number-2">12</span> Metaprogramming done right</h2>
+<dl class="org-dl">
+<dt><b>David Wheeler</b></dt><dd>"All problems in computer science can be solved by
+another level of indirection".
+</dd>
+<dt><b>Myself</b></dt><dd>"Any boring (part of a) task can and should be automated away"
+</dd>
+<dt><b>Myself again</b></dt><dd>"Programming should be fun !"
+</dd>
+</dl>
+
+<p>
+Hence you should be able to automate boring parts of programming !
+To make it <i>easy</i>, you <b>need</b> the <i>simple</i> syntax of code as data structure.
+(disclosure: I'm a <a href="http://www.boost.org/doc/libs/1_49_0/libs/mpl/doc/index.html">Boost::mpl</a> user !)
+[ <a href="http://blog.fogus.me/2011/11/15/the-macronomicon-slides/">Macronomicon by M.Fogus</a>]
+</p>
+</section>
+</section>
+<section>
+<section id="sec-13" >
+
+<h2><span class="section-number-2">13</span> Growing a language</h2>
+<p>
+Macros not only for syntactic sugar :
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/clojure/core.match/wiki/Overview">Pattern matching</a>
+</li>
+<li><a href="http://www.slideshare.net/normanrichards/corelogic-introduction">Logic programming</a>
+</li>
+<li>static typing <a href="http://logaan.github.io/clojure/core.typed/2013/10/02/core.typed-game-of-life.html">http://logaan.github.io/clojure/core.typed/2013/10/02/core.typed-game-of-life.html</a>
+</li>
+<li>&hellip;
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-14" >
+
+<h2><span class="section-number-2">14</span> Conclusion</h2>
+<p>
+Perfect Plateform for :
+</p>
+<dl class="org-dl">
+<dt><b>Pompous Purists</b></dt><dd>you can add your monads with macros !
+</dd>
+<dt><b>Productivity Pirates™</b></dt><dd>you can reuse all the java libs/frameworks !
+</dd>
+<dt><b>Painful PHBs</b></dt><dd>it's all jars to you, JarJar !
+</dd>
+</dl>
+
+<p>
+Not all side effects are evil : by learning this language, you'll also
+learn concepts form the great minds behind it. You will also get a
+better understanding of concepts you already (think you) know
+(e.g. OOP, state, time, value, hammocks…).
+</p>
+</section>
+</section>
+<section>
+<section id="sec-15" >
+
+<h2><span class="section-number-2">15</span> TL;DR</h2>
+<ul class="org-ul">
+<li>Don't fear/dismiss the unknown
+</li>
+<li>Learn things and have fun ! (I know you will ☺)
+</li>
+</ul>
+
+<p>
+"<del>others will never resolve on passing higher order functions in
+forests of parenthesis</del>" ☹
+</p>
+
+
+<p>
+I avoided LISP for 10 years :
+"I was blind, now I can see.
+Rich made a believer out of me !" ☺
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-16" >
+
+<h2><span class="section-number-2">16</span> BTW, it now runs on the client</h2>
+<p>
+ClojureScript <a href="http://cljsfiddle.net/">compiles as efficient Javascript</a>, <a href="http://swannodette.github.io/2013/11/07/clojurescript-101/">with SourceMap</a> .
+</p>
+</section>
+</section>
+<section>
+<section id="sec-17" >
+
+<h2><span class="section-number-2">17</span> [Web|Bib]liography</h2>
+<ul class="org-ul">
+<li>Talks (slides / videos)
+<ul class="org-ul">
+<li>Are We There Yet ? <b>← Must See !</b>  <a href="http://www.wiki.jvmlangsummit.com/images/a/ab/HickeyJVMSummit2009.pdf">slides</a> / <a href="http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey">video</a>
+</li>
+<li><a href="https://blip.tv/clojure/hammock-driven-development-4475586">Hammock Driven Development</a>
+</li>
+<li><a href="http://www.infoq.com/presentations/Simple-Made-Easy">Simple Made Easy</a>
+</li>
+<li><a href="http://vimeo.com/68334908">ClojureScript: Lisp's Revenge</a>
+</li>
+</ul>
+</li>
+<li>Books
+<ul class="org-ul">
+<li><a href="http://joyofclojure.com/">The Joy of Clojure</a>
+</li>
+<li><a href="http://www.manning.com/rathore/">Clojure in Action</a>
+</li>
+<li><a href="http://www.clojurebook.com/">Clojure Programming</a>
+</li>
+</ul>
+</li>
+<li>Quick refs
+<ul class="org-ul">
+<li><a href="http://www.cis.upenn.edu/~matuszek/Concise%2520Guides/Concise%2520Clojure.html">Concise Clojure</a>
+</li>
+<li><a href="http://jafingerhut.github.io/cheatsheet-clj-1.3/cheatsheet-tiptip-cdocs-summary.html">http://jafingerhut.github.io/cheatsheet-clj-1.3/cheatsheet-tiptip-cdocs-summary.html</a>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+cheat sheets
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-18" >
+
+<h2><span class="section-number-2">18</span> Bonus track : snippets</h2>
+<div class="org-src-container">
+
+<pre class="src src-"code"lang"code"flags">"code"body
+</pre>
+</div>
+<dl class="org-dl">
+<dt><b>user&gt; (take 16 fizzbuzz)</b></dt><dd>(1 2 "Fizz" 4 "Buzz" "Fizz" 7 8 "Fizz"
+"Buzz" 11 "Fizz" 13 14 "FizzBuzz" 16)
+</dd>
+</dl>
+<div class="org-src-container">
+
+<pre class="src src-"code"lang"code"flags">"code"body
+</pre>
+</div>
+<dl class="org-dl">
+<dt><b>user&gt; (take 16 fib-seq)</b></dt><dd>(0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610)
+</dd>
+</dl>
+</section>
+</section>
+<section>
+<section id="sec-19" >
+
+<h2><span class="section-number-2">19</span> <span class="todo TODO">TODO</span> Hands-on !</h2>
+<ul class="org-ul">
+<li><a href="http://tryclj.com/">try clojure !</a>
+</li>
+<li><a href="https://gist.github.com/1951396">code snippets</a>
+<ul class="org-ul">
+<li><a href="http://www.cljbin.com/paste/4f564497e4b00708a069359e">fibonacci seq 1</a>
+</li>
+<li><a href="http://www.cljbin.com/paste/4f5644e4e4b00708a069359f">fibonacci seq 2</a>
+</li>
+<li><a href="http://www.cljbin.com/paste/4f564571e4b00708a06935a0">fizzbuzz</a>
+</li>
+<li><a href="http://www.cljbin.com/paste/4f564644e4b00708a06935a1">fizzbuzzzapp</a>
+</li>
+<li><a href="http://www.cljbin.com/paste/4f564754e4b00708a06935a3">menu</a>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Remember : a proper IDE will help <b>a lot</b> you with the () !
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: false,
+        			center: true,
+        			rollingLinks: false,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+
+        			]
+        		});
+</script>
+</body>
+</html>
