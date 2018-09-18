@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Clojure basics</title>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/2.5.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Clojure basics</h1><p class="date">Created: 2017-11-21 Tue 10:04</p>
+</section>
+
+<section>
+<section id="slide-org58757ce">
+<h2 id="org58757ce"><span class="section-number-2">1</span> Bindings</h2>
+<ul>
+<li>Variables : giving values to names</li>
+<li>Bindings : the opposite !</li>
+
+</ul>
+</section>
+<section id="slide-org21a365a">
+<h3 id="org21a365a"><span class="section-number-3">1.1</span> No mutable index ?!</h3>
+<p>
+&rarr; no iterative loops
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org8dc20ad">
+<h2 id="org8dc20ad"><span class="section-number-2">2</span> Types</h2>
+<ul>
+<li>dynamic typing &ne; untyped</li>
+<li>(Un)Boxing</li>
+
+</ul>
+</section>
+<section id="slide-orge059e31">
+<h3 id="orge059e31"><span class="section-number-3">2.1</span> nil</h3>
+<dl>
+<dt>nil</dt><dd>nil</dd>
+
+</dl>
+
+</section>
+<section id="slide-org74daf85">
+<h3 id="org74daf85"><span class="section-number-3">2.2</span> Number</h3>
+<dl>
+<dt>java.lang.Long</dt><dd>1</dd>
+<dt>java.lang.Double</dt><dd>2.5</dd>
+<dt>java.math.BigDecimal</dt><dd>2,5M</dd>
+<dt>clojure.lang.ratio</dt><dd>/ 2 3</dd>
+
+<dt>(no term)</dt><dd>= vs. ==</dd>
+
+</dl>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>= <span style="color: #a45bad;">1</span> <span style="color: #a45bad;">1.</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>= <span style="color: #a45bad;">1</span> <span style="color: #a45bad;">1.M</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>== <span style="color: #a45bad;">1</span> <span style="color: #a45bad;">1.</span> <span style="color: #a45bad;">1.M</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org0c6fc56">
+<h3 id="org0c6fc56"><span class="section-number-3">2.3</span> Booleans</h3>
+<dl>
+<dt>java.lang.Boolean</dt><dd>true</dd>
+
+</dl>
+
+</section>
+<section id="slide-org36eb2f6">
+<h3 id="org36eb2f6"><span class="section-number-3">2.4</span> Strings</h3>
+<dl>
+<dt>java.lang.String</dt><dd>"awesome"</dd>
+<dt>java.lang.character</dt><dd>\o</dd>
+
+</dl>
+</section>
+<section id="slide-org46c1870">
+<h3 id="org46c1870"><span class="section-number-3">2.5</span> Keywords</h3>
+<p>
+interned strings
+</p>
+<dl>
+<dt>clojure.lang.keyword</dt><dd>:fast</dd>
+
+</dl>
+</section>
+<section id="slide-orge75b395">
+<h3 id="orge75b395"><span class="section-number-3">2.6</span> Symbols</h3>
+<dl>
+<dt>clojure.lang.Symbol</dt><dd>'fast</dd>
+
+</dl>
+
+</section>
+<section id="slide-org35cf70c">
+<h3 id="org35cf70c"><span class="section-number-3">2.7</span> Regexp</h3>
+<dl>
+<dt>java.util.regex.Pattern</dt><dd>#".*"</dd>
+
+</dl>
+</section>
+<section id="slide-org514ee09">
+<h3 id="org514ee09"><span class="section-number-3">2.8</span> any java type</h3>
+<dl>
+<dt>java.util.Date</dt><dd>(java.util.Date. )</dd>
+
+</dl>
+
+
+<ul>
+<li>…</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgac6f524">
+<h2 id="orgac6f524"><span class="section-number-2">3</span> Truthiness</h2>
+<ul>
+<li>false</li>
+<li>nil</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #a45bad;">false</span> <span style="color: #a45bad;">:t</span> <span style="color: #a45bad;">:f</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #a45bad;">nil</span> <span style="color: #a45bad;">:t</span> <span style="color: #a45bad;">:f</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">Boolean.</span> <span style="color: #a45bad;">false</span><span style="color: #bc6ec5;">)</span> <span style="color: #a45bad;">:t</span> <span style="color: #a45bad;">:f</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgb1eca62">
+<h2 id="orgb1eca62"><span class="section-number-2">4</span> Control structures</h2>
+<p>
+Always have <a href="http://jafingerhut.github.io/cheatsheet-clj-1.3/cheatsheet-tiptip-cdocs-summary.html">cheat sheet</a> at hand, and also <a href="http://clojuredocs.org/">examples</a>.
+</p>
+</section>
+<section id="slide-orgdf44f53">
+<h3 id="orgdf44f53"><span class="section-number-3">4.1</span> if</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">Boolean.</span> <span style="color: #a45bad;">false</span><span style="color: #bc6ec5;">)</span> <span style="color: #2d9574;">"logical true"</span> <span style="color: #2d9574;">"logical false"</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>boolean <span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">Boolean.</span> <span style="color: #a45bad;">false</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #2d9574;">"logical true"</span> <span style="color: #2d9574;">"logical false"</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">Boolean</span><span style="color: #b2b2b2; background-color: #292b2e;">/</span><span style="color: #bc6ec5;">valueOf</span> <span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">Boolean.</span> <span style="color: #a45bad;">false</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #2d9574;">"logical true"</span> <span style="color: #2d9574;">"logical false"</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org62f932b">
+<h3 id="org62f932b"><span class="section-number-3">4.2</span> when</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>macroexpand '<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">when</span> <span style="color: #a45bad;">true</span> <span style="color: #2d9574;">(</span>print <span style="color: #2d9574;">"Hello "</span><span style="color: #2d9574;">)(</span>println <span style="color: #2d9574;">"Clojure !"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+<p>
+Note the '.
+</p>
+
+</section>
+<section id="slide-orgccc2361">
+<h3 id="orgccc2361"><span class="section-number-3">4.3</span> cond, condp</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #bc6ec5;">[</span>grade <span style="color: #a45bad;">85</span><span style="color: #bc6ec5;">]</span>
+         <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">cond</span>
+           <span style="color: #2d9574;">(</span>&gt;= grade <span style="color: #a45bad;">90</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">"A"</span>
+           <span style="color: #2d9574;">(</span>&gt;= grade <span style="color: #a45bad;">80</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">"B"</span>
+           <span style="color: #2d9574;">(</span>&gt;= grade <span style="color: #a45bad;">70</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">"C"</span>
+           <span style="color: #2d9574;">(</span>&gt;= grade <span style="color: #a45bad;">60</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">"D"</span>
+           <span style="color: #a45bad;">:else</span> <span style="color: #2d9574;">"F"</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">condp</span> = value
+             <span style="color: #a45bad;">1</span> <span style="color: #2d9574;">"one"</span>
+             <span style="color: #a45bad;">2</span> <span style="color: #2d9574;">"two"</span>
+             <span style="color: #a45bad;">3</span> <span style="color: #2d9574;">"three"</span>
+             <span style="color: #bc6ec5;">(</span>str <span style="color: #2d9574;">"unexpected value, </span><span style="color: #2d9574; font-weight: bold;">\"</span><span style="color: #2d9574;">"</span> value <span style="color: #2d9574;">\"</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+<p>
+Use <code>macroexpand</code>.
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org5799823">
+<h2 id="org5799823"><span class="section-number-2">5</span> Recursion everywhere</h2>
+<p>
+Examples
+</p>
+
+<p>
+( <b>Don't do this at home !</b>, for illustrative purposes only cf. infra)
+</p>
+</section>
+<section id="slide-orga48227c">
+<h3 id="orga48227c"><span class="section-number-3">5.1</span> Sum</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">sum</span> <span style="color: #bc6ec5;">[</span>xs<span style="color: #bc6ec5;">]</span> <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>&gt; <span style="color: #67b11d;">(</span>count xs<span style="color: #67b11d;">)</span> <span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">(</span>+ <span style="color: #67b11d;">(</span>first xs<span style="color: #67b11d;">)</span> <span style="color: #67b11d;">(</span>sum <span style="color: #b1951d;">(</span>rest xs<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org17b251c">
+<h3 id="org17b251c"><span class="section-number-3">5.2</span> Running sum</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">running-sum-helper</span> <span style="color: #bc6ec5;">[</span>xs res<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>&gt; <span style="color: #67b11d;">(</span>count xs<span style="color: #67b11d;">)</span> <span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>
+    <span style="color: #2d9574;">(</span>running-sum-helper
+     <span style="color: #67b11d;">(</span>rest xs<span style="color: #67b11d;">)</span>
+     <span style="color: #67b11d;">(</span>conj res <span style="color: #b1951d;">(</span>first xs<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+    res<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">running-sum</span> <span style="color: #bc6ec5;">[</span>xs<span style="color: #bc6ec5;">]</span> <span style="color: #bc6ec5;">(</span>running-sum-helper <span style="color: #2d9574;">(</span>rest xs<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">[</span><span style="color: #67b11d;">(</span>first xs<span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+<p>
+Need a helper function to build the result as an argument.
+</p>
+</section>
+<section id="slide-org4935db3">
+<h3 id="org4935db3"><span class="section-number-3">5.3</span> nth Fibonacci number</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">fibo</span> <span style="color: #bc6ec5;">[</span>n<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>&lt; n <span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>
+    n
+    <span style="color: #2d9574;">(</span>+
+     <span style="color: #67b11d;">(</span>fibo <span style="color: #b1951d;">(</span>- n <span style="color: #a45bad;">1</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span>
+     <span style="color: #67b11d;">(</span>fibo <span style="color: #b1951d;">(</span>- n <span style="color: #a45bad;">2</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org5ff29a9">
+<h2 id="org5ff29a9"><span class="section-number-2">6</span> No Tail Call Optimization</h2>
+<p>
+Previous examples with large values &rarr; StackOverflowException
+loop recur
+</p>
+
+<p>
+(But again <b>don't do this at home !</b>, for illustrative purposes only cf. infra)
+</p>
+</section>
+<section id="slide-orgb4737b5">
+<h3 id="orgb4737b5"><span class="section-number-3">6.1</span> Sum</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">sum</span> <span style="color: #bc6ec5;">[</span>xs<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">loop</span> <span style="color: #2d9574;">[</span>res <span style="color: #a45bad;">0</span>
+         xs xs<span style="color: #2d9574;">]</span>
+    <span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>= <span style="color: #b1951d;">(</span>count xs<span style="color: #b1951d;">)</span> <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span>
+      res
+      <span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">recur</span>
+       <span style="color: #b1951d;">(</span>+
+        res
+        <span style="color: #4f97d7;">(</span>first xs<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>
+       <span style="color: #b1951d;">(</span>rest xs<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org2b5ab1f">
+<h3 id="org2b5ab1f"><span class="section-number-3">6.2</span> Running sum</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">running-sum</span> <span style="color: #bc6ec5;">[</span>xs<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">loop</span> <span style="color: #2d9574;">[</span>res <span style="color: #67b11d;">[</span><span style="color: #b1951d;">(</span>first xs<span style="color: #b1951d;">)</span><span style="color: #67b11d;">]</span>
+         xs <span style="color: #67b11d;">(</span>rest xs<span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span>
+    <span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>= <span style="color: #b1951d;">(</span>count xs<span style="color: #b1951d;">)</span> <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span>
+      res
+      <span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">recur</span>
+       <span style="color: #b1951d;">(</span>conj res <span style="color: #4f97d7;">(</span>+ <span style="color: #bc6ec5;">(</span>last res<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">(</span>first xs<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>
+       <span style="color: #b1951d;">(</span>rest xs<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org87c50c0">
+<h3 id="org87c50c0"><span class="section-number-3">6.3</span> nth Fibonacci number</h3>
+<p>
+not only tail recursion
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org7b54612">
+<h2 id="org7b54612"><span class="section-number-2">7</span> Standard containers</h2>
+<p>
+immutable, obviously
+</p>
+</section>
+<section id="slide-org602acaf">
+<h3 id="org602acaf"><span class="section-number-3">7.1</span> vector</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">[</span> <span style="color: #a45bad;">3</span> <span style="color: #2d9574;">"four"</span> <span style="color: #a45bad;">:one</span> <span style="color: #a45bad;">2.5</span><span style="color: #4f97d7;">]</span>
+<span style="color: #4f97d7;">(</span>vector <span style="color: #a45bad;">3</span> <span style="color: #2d9574;">"four"</span> <span style="color: #a45bad;">:one</span> <span style="color: #a45bad;">2.5</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org3a9645a">
+<h3 id="org3a9645a"><span class="section-number-3">7.2</span> hash-map</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">{</span> <span style="color: #a45bad;">:k</span> <span style="color: #2d9574;">"four"</span> <span style="color: #a45bad;">:i</span> <span style="color: #a45bad;">2.5</span> <span style="color: #a45bad;">:j</span> <span style="color: #a45bad;">1</span><span style="color: #4f97d7;">}</span>
+<span style="color: #4f97d7;">(</span>hash-map <span style="color: #a45bad;">:k</span> <span style="color: #2d9574;">"four"</span> <span style="color: #a45bad;">:i</span> <span style="color: #a45bad;">2.5</span> <span style="color: #a45bad;">:j</span> <span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orge039a5c">
+<h3 id="orge039a5c"><span class="section-number-3">7.3</span> hash-set</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure">#<span style="color: #4f97d7;">{</span> <span style="color: #2d9574;">"because"</span> <span style="color: #2d9574;">"science"</span> <span style="color: #2d9574;">"fun"</span> <span style="color: #2d9574;">"programming"</span><span style="color: #4f97d7;">}</span>
+<span style="color: #4f97d7;">(</span>hash-set <span style="color: #2d9574;">"because"</span> <span style="color: #2d9574;">"science"</span> <span style="color: #2d9574;">"fun"</span> <span style="color: #2d9574;">"programming"</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org5bb97ec">
+<h3 id="org5bb97ec"><span class="section-number-3">7.4</span> list</h3>
+<ul>
+<li>quote</li>
+<li>\'</li>
+
+</ul>
+<p>
+Need to prevent evaluation of the list, because homoiconocity.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure">'<span style="color: #4f97d7;">(</span> <span style="color: #2d9574;">"because"</span> <span style="color: #2d9574;">"science"</span> <span style="color: #2d9574;">"fun"</span> <span style="color: #2d9574;">"programming"</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">quote</span> <span style="color: #bc6ec5;">(</span> <span style="color: #2d9574;">"because"</span> <span style="color: #2d9574;">"science"</span> <span style="color: #2d9574;">"fun"</span> <span style="color: #2d9574;">"programming"</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org37bfe59">
+<h3 id="org37bfe59"><span class="section-number-3">7.5</span> Seq(uence) interface</h3>
+<p>
+Better have 100 algorithms working on one container than 10 algorithms on 10 containers &rarr; Dynamic Polymorphism
+</p>
+
+<ul>
+<li>first, rest</li>
+<li>cons, conj</li>
+<li>into</li>
+
+</ul>
+</section>
+<section id="slide-org9f6bc4e">
+<h3 id="org9f6bc4e"><span class="section-number-3">7.6</span> Java arrays</h3>
+<ul>
+<li>into-array</li>
+<li>{primitive-type}-array</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org7ad12a7">
+<h2 id="org7ad12a7"><span class="section-number-2">8</span> Standard Algorithms</h2>
+<div class="outline-text-2" id="text-8">
+</div></section>
+<section id="slide-org4af62e7">
+<h3 id="org4af62e7"><span class="section-number-3">8.1</span> map</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>map inc <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span> <span style="color: #a45bad;">2</span> <span style="color: #a45bad;">3</span> <span style="color: #a45bad;">4</span> <span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>map + <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span> <span style="color: #a45bad;">2</span> <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">]</span> <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">4</span> <span style="color: #a45bad;">5</span> <span style="color: #a45bad;">6</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgf0d4d51">
+<h3 id="orgf0d4d51"><span class="section-number-3">8.2</span> reduce</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>reduce + <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span> <span style="color: #a45bad;">2</span> <span style="color: #a45bad;">3</span> <span style="color: #a45bad;">4</span> <span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgee09c8a">
+<h3 id="orgee09c8a"><span class="section-number-3">8.3</span> filter</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>filter even? <span style="color: #bc6ec5;">(</span>range <span style="color: #a45bad;">10</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org5b33e72">
+<h3 id="org5b33e72"><span class="section-number-3">8.4</span> take</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>take <span style="color: #a45bad;">3</span> <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span> <span style="color: #a45bad;">2</span> <span style="color: #a45bad;">3</span> <span style="color: #a45bad;">4</span> <span style="color: #a45bad;">5</span> <span style="color: #a45bad;">6</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>take <span style="color: #a45bad;">2</span> <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">:k</span> <span style="color: #2d9574;">"four"</span> <span style="color: #a45bad;">:i</span> <span style="color: #a45bad;">2.5</span> <span style="color: #a45bad;">:j</span> <span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>take <span style="color: #a45bad;">10</span> <span style="color: #bc6ec5;">(</span>range<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgfa6bfbb">
+<h2 id="orgfa6bfbb"><span class="section-number-2">9</span> Laziness</h2>
+<p>
+Cf. timing def. and infinite sequences
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>doc range<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #7590db;">not-yet</span> <span style="color: #bc6ec5;">(</span>map #<span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">Thread</span><span style="color: #b2b2b2; background-color: #292b2e;">/</span>sleep <span style="color: #7590db;">%</span><span style="color: #2d9574;">)(</span>range <span style="color: #a45bad;">1000</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org577ebc9">
+<h2 id="org577ebc9"><span class="section-number-2">10</span> Lambda functions</h2>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">fn</span> <span style="color: #bc6ec5;">[</span>a b<span style="color: #bc6ec5;">]</span> <span style="color: #bc6ec5;">(</span>/<span style="color: #2d9574;">(</span>+ a b<span style="color: #2d9574;">)</span> <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+#<span style="color: #4f97d7;">(</span>/ <span style="color: #bc6ec5;">(</span>+ <span style="color: #7590db;">%1</span> <span style="color: #7590db;">%2</span><span style="color: #bc6ec5;">)</span> <span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgec5d569">
+<h3 id="orgec5d569"><span class="section-number-3">10.1</span> declaring a function</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #7590db;">my-fun</span> <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">fn</span> <span style="color: #2d9574;">[]</span> <span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">my-fun</span> <span style="color: #bc6ec5;">[]</span> <span style="color: #bc6ec5;">()</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgb2f1e0b">
+<h3 id="orgb2f1e0b"><span class="section-number-3">10.2</span> syntactic sugar (macro)</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>macroexpand '<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">my-fun</span> <span style="color: #2d9574;">[]</span> <span style="color: #2d9574;">()</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>macroexpand '<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">f1</span> <span style="color: #2d9574;">[</span>args<span style="color: #2d9574;">]</span> <span style="color: #2d9574;">(</span>println args<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org61ba30a">
+<h3 id="org61ba30a"><span class="section-number-3">10.3</span> multiple arity</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">multi-arity</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">[]</span>
+     <span style="color: #2d9574;">(</span>println <span style="color: #2d9574;">"no arg"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">[</span>a<span style="color: #2d9574;">]</span>
+      <span style="color: #2d9574;">(</span>println <span style="color: #2d9574;">"one arg"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">[</span>a b<span style="color: #2d9574;">]</span>
+      <span style="color: #2d9574;">(</span>println <span style="color: #2d9574;">"two args"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orge646f8e">
+<h3 id="orge646f8e"><span class="section-number-3">10.4</span> variable arity</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">variable-arity</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">[]</span>
+     <span style="color: #2d9574;">(</span>println <span style="color: #2d9574;">"no arg"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">[</span>a<span style="color: #2d9574;">]</span>
+      <span style="color: #2d9574;">(</span>println <span style="color: #2d9574;">"one arg"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">[</span>a &amp; r<span style="color: #2d9574;">]</span>
+      <span style="color: #2d9574;">(</span>println <span style="color: #2d9574;">"many args"</span> a r<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgcd837fe">
+<h3 id="orgcd837fe"><span class="section-number-3">10.5</span> docstring</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">with-doc</span>
+<span style="color: #2aa1ae;">"A documentation explaining the function."</span>
+<span style="color: #bc6ec5;">[]</span>
+<span style="color: #bc6ec5;">(</span>println <span style="color: #2d9574;">"hello world !"</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org3e65b81">
+<h3 id="org3e65b81"><span class="section-number-3">10.6</span> type hints</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">set!</span> <span style="color: #4f97d7;">*warn-on-reflection*</span> <span style="color: #a45bad;">true</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">len</span> <span style="color: #bc6ec5;">[</span>x<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #bc6ec5;">.length</span> x<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">len2</span> <span style="color: #bc6ec5;">[</span>^<span style="color: #ce537a; font-weight: bold;">String</span> x<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #bc6ec5;">.length</span> x<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7;">(</span>time <span style="color: #bc6ec5;">(</span>reduce + <span style="color: #2d9574;">(</span>map len <span style="color: #67b11d;">(</span>repeat <span style="color: #a45bad;">1000000</span> <span style="color: #2d9574;">"asdf"</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>time <span style="color: #bc6ec5;">(</span>reduce + <span style="color: #2d9574;">(</span>map len2 <span style="color: #67b11d;">(</span>repeat <span style="color: #a45bad;">1000000</span> <span style="color: #2d9574;">"asdf"</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgfbca3a2">
+<h2 id="orgfbca3a2"><span class="section-number-2">11</span> Destructuring</h2>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">my-fun</span> <span style="color: #bc6ec5;">[</span>a-vector<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">let</span><span style="color: #2d9574;">[</span>d <span style="color: #67b11d;">(</span>get a-vector <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span>
+       a1 <span style="color: #67b11d;">(</span>get a-vector <span style="color: #a45bad;">1</span><span style="color: #67b11d;">)</span>
+       a2 <span style="color: #67b11d;">(</span>get a-vector <span style="color: #a45bad;">2</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span>
+    <span style="color: #2d9574;">(</span>/ <span style="color: #67b11d;">(</span>+ a1 a2<span style="color: #67b11d;">)</span> d<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">my-fun</span> <span style="color: #bc6ec5;">[</span><span style="color: #2d9574;">[</span>d a1 a2<span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">]</span>
+   <span style="color: #bc6ec5;">(</span>/ <span style="color: #2d9574;">(</span>+ a1 a2<span style="color: #2d9574;">)</span> d<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org9c54b32">
+<h2 id="org9c54b32"><span class="section-number-2">12</span> Closures</h2>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">adder</span> <span style="color: #bc6ec5;">[</span>n<span style="color: #bc6ec5;">]</span>
+  #<span style="color: #bc6ec5;">(</span>+ n <span style="color: #7590db;">%1</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+
+
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #7590db;">foo</span>
+  <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #2d9574;">[</span>counter <span style="color: #67b11d;">(</span>atom <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span>
+    <span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">fn</span> <span style="color: #67b11d;">[]</span> <span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">do</span> <span style="color: #b1951d;">(</span>swap! counter inc<span style="color: #b1951d;">)</span> @counter<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgb2423e8">
+<h2 id="orgb2423e8"><span class="section-number-2">13</span> Idiomatic Clojure</h2>
+<div class="outline-text-2" id="text-13">
+</div></section>
+<section id="slide-org5108b31">
+<h3 id="org5108b31"><span class="section-number-3">13.1</span> sum</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>apply + xs<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>reduce + xs<span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org49dc7f2">
+<h3 id="org49dc7f2"><span class="section-number-3">13.2</span> running sum</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defn</span> <span style="color: #bc6ec5; font-weight: bold;">running-sum</span> <span style="color: #bc6ec5;">[</span>xs<span style="color: #bc6ec5;">]</span>
+  <span style="color: #bc6ec5;">(</span>reduce #<span style="color: #2d9574;">(</span>conj <span style="color: #7590db;">%1</span> <span style="color: #67b11d;">(</span>+ <span style="color: #b1951d;">(</span>last <span style="color: #7590db;">%1</span><span style="color: #b1951d;">)</span> <span style="color: #7590db;">%2</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+          <span style="color: #2d9574;">[</span><span style="color: #67b11d;">(</span>first xs<span style="color: #67b11d;">)</span><span style="color: #2d9574;">]</span>
+          <span style="color: #2d9574;">(</span>rest xs<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org1dcfee1">
+<h3 id="org1dcfee1"><span class="section-number-3">13.3</span> Fibonacci</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #7590db;">memo-fibo</span> <span style="color: #bc6ec5;">(</span>memoize fibo<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #7590db;">fib-seq</span>
+     <span style="color: #bc6ec5;">(</span>lazy-cat <span style="color: #2d9574;">[</span><span style="color: #a45bad;">0</span> <span style="color: #a45bad;">1</span><span style="color: #2d9574;">]</span> <span style="color: #2d9574;">(</span>map + <span style="color: #67b11d;">(</span>rest fib-seq<span style="color: #67b11d;">)</span> fib-seq<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org7cc2f47">
+<h3 id="org7cc2f47"><span class="section-number-3">13.4</span> first primes</h3>
+<p>
+Food for thought.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span style="color: #4f97d7;">(</span>reduce
+         <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">fn</span> <span style="color: #2d9574;">[</span>primes number<span style="color: #2d9574;">]</span>
+           <span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>some zero? <span style="color: #b1951d;">(</span>map <span style="color: #4f97d7;">(</span>partial mod number<span style="color: #4f97d7;">)</span> primes<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span>
+             primes
+             <span style="color: #67b11d;">(</span>conj primes number<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+         <span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">]</span>
+         <span style="color: #bc6ec5;">(</span>take <span style="color: #a45bad;">1000</span> <span style="color: #2d9574;">(</span>iterate inc <span style="color: #a45bad;">3</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgc11d5bd">
+<h3 id="orgc11d5bd"><span class="section-number-3">13.5</span> Kibit</h3>
+<p>
+<a href="https://metaphysicaldeveloper.wordpress.com/2013/11/18/idiomatic-clojure-with-lighttable/">https://metaphysicaldeveloper.wordpress.com/2013/11/18/idiomatic-clojure-with-lighttable/</a>
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
